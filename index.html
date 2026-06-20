@@ -36,7 +36,8 @@ body.night-mode #grass{background:var(--ground-dk);}
 #path-strip{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:56px;height:85px;background:var(--path);opacity:0.45;}
 
 /* ── PUPPY ── */
-#puppy-wrap{position:absolute;bottom:84px;left:50%;transform:translateX(-50%);z-index:10;}
+#puppy-wrap{position:absolute;bottom:84px;left:50%;transform:translateX(-50%);z-index:10;transition:bottom 0.36s cubic-bezier(0.4,0,0.2,1);}
+body.test-mode-open #puppy-wrap{bottom:calc(62vh + 20px);}
 #puppy{width:88px;height:88px;position:relative;}
 #p-body{position:absolute;bottom:16px;left:16px;width:54px;height:38px;background:#c8854a;border-radius:40% 40% 35% 35%;}
 #p-head{position:absolute;bottom:46px;left:26px;width:36px;height:32px;background:#c8854a;border-radius:50% 50% 40% 40%;}
@@ -69,6 +70,47 @@ body.night-mode #grass{background:var(--ground-dk);}
 .state-happy #p-tail{animation:tailWagFast .2s ease infinite;}.state-happy #p-body{animation:bodyBob .22s ease infinite;}
 .state-happy #p-head{animation:headBob .22s ease infinite;}.state-happy #puppy{animation:celebration .3s ease infinite;}
 .state-idle #p-tail{animation:tailWag 1.2s ease infinite;}.state-idle #p-body{animation:bodyBob 1.5s ease infinite;}
+
+/* ── CYCLING HELMET ── */
+#p-helmet{
+  position:absolute;
+  top:-18px;left:50%;transform:translateX(-50%);
+  font-size:22px;
+  opacity:0;
+  transition:opacity 0.5s ease;
+  pointer-events:none;
+  z-index:5;
+}
+#p-helmet.visible{opacity:1;}
+
+/* cycling animation — puppy leans forward */
+.state-cycling #p-body{transform:rotate(-15deg) translateY(-4px);animation:bodyBob .3s ease infinite;}
+.state-cycling #p-head{transform:rotate(-10deg) translateX(6px);animation:headBob .3s ease infinite;}
+.state-cycling #p-leg-fl{animation:pawL .2s ease infinite;}
+.state-cycling #p-leg-fr{animation:pawR .2s ease infinite;}
+.state-cycling #p-leg-bl{animation:pawR .2s ease infinite;}
+.state-cycling #p-leg-br{animation:pawL .2s ease infinite;}
+.state-cycling #p-tail{animation:tailWagFast .25s ease infinite;}
+.state-cycling #puppy{animation:puppyRun .2s ease infinite;}
+
+/* cycling bonus bar */
+#cycling-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:49;
+  padding:0 14px 4px;
+  display:none;
+}
+#cycling-bar.visible{display:block;}
+#cycling-inner{
+  background:rgba(255,255,255,0.7);
+  border-radius:10px;padding:5px 12px;
+  display:flex;align-items:center;gap:8px;
+  backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,0.6);
+}
+#cycling-label{font-size:11px;font-weight:700;color:var(--txt-m);text-transform:uppercase;letter-spacing:0.7px;white-space:nowrap;}
+#cycling-track{flex:1;background:rgba(0,0,0,0.08);border-radius:6px;height:6px;overflow:hidden;}
+#cycling-fill{height:100%;background:linear-gradient(90deg,#5ac8fa,#34c759);border-radius:6px;transition:width 0.5s;width:0%;}
+#cycling-km{font-size:11px;font-weight:700;color:#34c759;white-space:nowrap;}
 
 /* ── HUD ── */
 #hud{position:fixed;top:0;left:0;right:0;z-index:50;padding:calc(var(--sat) + 8px) 14px 10px;display:flex;align-items:flex-start;gap:8px;background:linear-gradient(to bottom,rgba(232,244,253,0.97) 72%,transparent);transition:background 1.2s;}
@@ -125,7 +167,8 @@ body.night-mode .tab-badge{border-color:var(--night);}
 /* space */
 #panel-space{display:none;flex-direction:column;height:100%;background:var(--space);color:#fff;}
 #panel-space.active{display:flex;}
-#space-scene{position:relative;flex:1;overflow:hidden;min-height:0;}
+#space-scene{position:relative;flex:1;overflow-y:auto;overflow-x:hidden;min-height:0;-webkit-overflow-scrolling:touch;}
+#orrery-svg{display:block;}
 #space-canvas{position:absolute;inset:0;width:100%;height:100%;}
 #spacecraft{position:absolute;left:50%;bottom:15%;transform:translateX(-50%);font-size:36px;transition:bottom 1s ease;animation:engineGlow 1.5s ease-in-out infinite;}
 #space-body{position:absolute;right:24px;border-radius:50%;transition:all 0.8s;}
@@ -298,6 +341,7 @@ body.night-mode #export-screen{background:var(--night);}
   <div id="ground"><div id="grass"></div><div id="path-strip"></div></div>
   <div id="puppy-wrap">
     <div id="p-zzz">Zzz</div>
+    <div id="p-helmet">⛑️</div>
     <div id="puppy" class="state-idle">
       <div id="p-body"></div><div id="p-tail"></div>
       <div id="p-leg-bl"></div><div id="p-leg-br"></div>
@@ -317,6 +361,7 @@ body.night-mode #export-screen{background:var(--night);}
 <div id="hud">
   <div class="stat-card"><div class="stat-val" id="step-count">0</div><div class="stat-label">Steps</div></div>
   <div class="stat-card"><div class="stat-val" id="mood-emoji">😴</div><div class="stat-label">Mood</div></div>
+  <div class="stat-card"><div class="stat-val" id="cycling-count">0<span style="font-size:13px;font-weight:600"> km</span></div><div class="stat-label">🚴 Cycle</div></div>
   <div class="stat-card"><div class="stat-val" id="streak-count">0</div><div class="stat-label">Streak</div></div>
 </div>
 
@@ -335,7 +380,7 @@ body.night-mode #export-screen{background:var(--night);}
 </div>
 
 <!-- TEST MODE PANEL -->
-<div id="test-panel" style="position:fixed;bottom:-340px;left:0;right:0;z-index:80;background:var(--card);border-radius:24px 24px 0 0;padding:16px 20px calc(var(--sab) + 16px);box-shadow:0 -4px 24px rgba(0,0,0,0.12);transition:bottom 0.36s cubic-bezier(0.4,0,0.2,1);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,0.7);">
+<div id="test-panel" style="position:fixed;bottom:-340px;left:0;right:0;z-index:80;background:var(--card);border-radius:24px 24px 0 0;padding:16px 20px calc(var(--sab) + 16px);box-shadow:0 -4px 24px rgba(0,0,0,0.12);transition:bottom 0.36s cubic-bezier(0.4,0,0.2,1);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,0.7);max-height:62vh;overflow-y:auto;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
     <div>
       <div style="font-size:16px;font-weight:800;color:var(--txt);">🧪 Test Mode</div>
@@ -384,6 +429,27 @@ body.night-mode #export-screen{background:var(--night);}
       <button class="jump-btn" data-jump="10000" style="padding:6px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);background:var(--card);font-size:11px;font-weight:600;color:var(--txt);cursor:pointer;">10K 🎉</button>
     </div>
   </div>
+
+  <!-- Cycling test -->
+  <div style="margin-top:12px;">
+    <div style="font-size:12px;font-weight:600;color:var(--txt-m);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:8px;">🚴 Test cycling helmet</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      <button class="cycle-btn" data-cycle="2"  style="padding:6px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);background:var(--card);font-size:11px;font-weight:600;color:var(--txt);cursor:pointer;">+2km 🚴</button>
+      <button class="cycle-btn" data-cycle="5"  style="padding:6px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);background:var(--card);font-size:11px;font-weight:600;color:var(--txt);cursor:pointer;">+5km 🚴</button>
+      <button class="cycle-btn" data-cycle="10" style="padding:6px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);background:var(--card);font-size:11px;font-weight:600;color:var(--txt);cursor:pointer;">+10km 🚴</button>
+      <button class="cycle-btn" data-cycle="0"  style="padding:6px 10px;border-radius:8px;border:1px solid rgba(255,59,48,0.3);background:rgba(255,59,48,0.06);font-size:11px;font-weight:600;color:#ff3b30;cursor:pointer;">Reset 🚫</button>
+    </div>
+  </div>
+
+  <!-- Night mode test -->
+  <div style="margin-top:12px;">
+    <div style="font-size:12px;font-weight:600;color:var(--txt-m);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:8px;">🌙 Test sleep pattern</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      <button id="force-night-btn" style="padding:6px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);background:var(--card);font-size:11px;font-weight:600;color:var(--txt);cursor:pointer;">🌙 Force night</button>
+      <button id="force-day-btn" style="padding:6px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);background:var(--card);font-size:11px;font-weight:600;color:var(--txt);cursor:pointer;">☀️ Force day</button>
+      <button id="clear-force-btn" style="padding:6px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);background:var(--card);font-size:11px;font-weight:600;color:var(--txt);cursor:pointer;">Use real clock</button>
+    </div>
+  </div>
 </div>
 
 <!-- Shared ribbon -->
@@ -403,6 +469,32 @@ body.night-mode #export-screen{background:var(--night);}
   <div id="milestone-hint"><span class="locked">🔒 Keep walking to unlock...</span></div>
 </div>
 
+<!-- Cycling bonus bar -->
+<div id="cycling-bar">
+  <div id="cycling-inner">
+    <span id="cycling-label">🚴 Bonus</span>
+    <div id="cycling-track"><div id="cycling-fill"></div></div>
+    <span id="cycling-km">0 km</span>
+  </div>
+</div>
+
+<!-- Cycling start/stop toggle -->
+<button id="cycle-toggle-btn" style="
+  position:fixed;
+  bottom:calc(var(--sab) + 96px);
+  right:16px;
+  z-index:55;
+  width:56px;height:56px;
+  border-radius:50%;
+  background:var(--card);
+  border:1.5px solid rgba(0,0,0,0.08);
+  box-shadow:0 4px 16px rgba(0,0,0,0.12);
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;cursor:pointer;
+  backdrop-filter:blur(8px);
+  transition:all 0.25s ease;
+">🚴</button>
+
 <!-- Side tabs -->
 <div id="panel-btn">
   <button class="pnl-tab" id="tab-space">🚀<span class="tab-badge" id="badge-space">!</span></button>
@@ -414,7 +506,15 @@ body.night-mode #export-screen{background:var(--night);}
   <div id="panel-space">
     <div class="panel-header"><h2>🚀 Cosmic Travel</h2><button class="close-btn" id="close-panel-space">✕</button></div>
     <div class="panel-step-pill"><span class="psp-icon">🐾</span><div class="psp-text"><div class="psp-label">Your walk powers this</div><div class="psp-val" id="sp-step-mirror">0 steps</div><div class="psp-note">Same steps as your puppy walk</div></div></div>
-    <div id="space-scene"><canvas id="space-canvas"></canvas><div id="spacecraft">🛸</div><div id="space-body"></div><div id="space-label"></div></div>
+    <div id="space-scene">
+      <svg id="orrery-svg" viewBox="0 0 340 480" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;">
+        <rect width="340" height="480" fill="#060d1f"/>
+        <g id="orrery-stars"></g>
+        <g id="orrery-orbits"></g>
+        <g id="orrery-bodies"></g>
+        <g id="orrery-craft"></g>
+      </svg>
+    </div>
     <div id="space-info">
       <div class="s-name" id="sp-name">On the launchpad</div>
       <div class="s-fact" id="sp-fact">Walk 500 steps to break Earth's orbit and begin your solar system journey.</div>
@@ -427,12 +527,12 @@ body.night-mode #export-screen{background:var(--night);}
     <div class="panel-header"><h2>🗺️ Ancient Routes</h2><button class="close-btn" id="close-panel-earth">✕</button></div>
     <div class="panel-step-pill" style="background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.1);"><span class="psp-icon">🐾</span><div class="psp-text"><div class="psp-label">Your walk powers this</div><div class="psp-val" id="e-step-mirror">0 steps</div><div class="psp-note">Same steps as your puppy walk</div></div></div>
     <div id="earth-map">
-      <svg id="route-svg" viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-        <rect width="300" height="260" fill="#1a3a1a"/>
-        <ellipse cx="148" cy="112" rx="58" ry="20" fill="#0d2a4a" opacity="0.7"/>
-        <path d="M150 112 Q153 132 151 162" stroke="#0d2a4a" stroke-width="4" fill="none" opacity="0.5"/>
-        <ellipse cx="170" cy="88" rx="10" ry="18" fill="#0d2a4a" opacity="0.5"/>
-        <polyline id="route-line" points="" stroke="#7ec850" stroke-width="1.5" fill="none" stroke-dasharray="4,3" opacity="0.55"/>
+      <svg id="route-svg" viewBox="0 0 340 880" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;">
+        <rect width="340" height="880" fill="#1a3a1a"/>
+        <g id="route-decor"></g>
+        <polyline id="route-line" points="" stroke="#7ec850" stroke-width="2" fill="none" stroke-dasharray="5,4" opacity="0.5"/>
+        <g id="route-dots"></g>
+        <g id="route-craft"></g>
       </svg>
     </div>
     <div id="earth-info">
@@ -480,26 +580,29 @@ const SPACE_WAYPOINTS=[
   {steps:15000,name:'Edge of solar system',color:'#ffffff',size:6,y:6,fact:'You\'ve reached the heliopause — where solar wind meets interstellar space. True explorer.'},
 ];
 const EARTH_WAYPOINTS=[
-  {steps:0,name:"Xi'an, China",x:252,y:88,fact:"The Silk Road begins here — linking East to West for 1,500 years of trade and culture."},
-  {steps:400,name:"Dunhuang Caves",x:215,y:83,fact:"The Mogao Caves hold 492 temples of Buddhist murals. Hidden manuscripts sealed here for 900 years."},
-  {steps:900,name:"Samarkand",x:164,y:78,fact:"The jewel of Central Asia. Its Registan Square is one of the world's most magnificent ensembles."},
-  {steps:1500,name:"Merv, Turkmenistan",x:142,y:86,fact:"Once the largest city in the world. A flourishing oasis where caravans rested for weeks."},
-  {steps:2200,name:"Ctesiphon, Persia",x:122,y:98,fact:"Capital of the Persian empire. The Arch of Ctesiphon is the largest unreinforced brick vault ever built."},
-  {steps:3000,name:"Antioch",x:104,y:97,fact:"Gateway to the Mediterranean — where Greek, Roman, and Eastern cultures blended for centuries."},
-  {steps:4000,name:"Constantinople",x:86,y:88,fact:"Where East meets West. The Hagia Sophia stood as the world's largest cathedral for nearly 1,000 years."},
-  {steps:5500,name:"Alexandria, Egypt",x:114,y:116,fact:"Home to the greatest library of the ancient world — at its peak holding 700,000 scrolls."},
-  {steps:7000,name:"Rome",x:78,y:93,fact:"At its peak Rome housed over 1 million people — not matched again until 19th-century London."},
-  {steps:9000,name:"Venice",x:79,y:81,fact:"Marco Polo sailed from here to reach China, directly inspiring the Age of Exploration."},
-  {steps:12000,name:"End of the Silk Road",x:60,y:77,fact:"You've walked the length of the ancient world. Merchants who completed this journey changed history."},
+  {steps:0,name:"Xi'an, China",x:250,y:50,fact:"The Silk Road begins here — linking East to West for 1,500 years of trade and culture."},
+  {steps:400,name:"Dunhuang Caves",x:120,y:130,fact:"The Mogao Caves hold 492 temples of Buddhist murals. Hidden manuscripts sealed here for 900 years."},
+  {steps:900,name:"Samarkand",x:240,y:210,fact:"The jewel of Central Asia. Its Registan Square is one of the world's most magnificent ensembles."},
+  {steps:1500,name:"Merv, Turkmenistan",x:110,y:290,fact:"Once the largest city in the world. A flourishing oasis where caravans rested for weeks."},
+  {steps:2200,name:"Ctesiphon, Persia",x:230,y:370,fact:"Capital of the Persian empire. The Arch of Ctesiphon is the largest unreinforced brick vault ever built."},
+  {steps:3000,name:"Antioch",x:120,y:450,fact:"Gateway to the Mediterranean — where Greek, Roman, and Eastern cultures blended for centuries."},
+  {steps:4000,name:"Constantinople",x:240,y:530,fact:"Where East meets West. The Hagia Sophia stood as the world's largest cathedral for nearly 1,000 years."},
+  {steps:5500,name:"Alexandria, Egypt",x:110,y:610,fact:"Home to the greatest library of the ancient world — at its peak holding 700,000 scrolls."},
+  {steps:7000,name:"Rome",x:230,y:690,fact:"At its peak Rome housed over 1 million people — not matched again until 19th-century London."},
+  {steps:9000,name:"Venice",x:120,y:760,fact:"Marco Polo sailed from here to reach China, directly inspiring the Age of Exploration."},
+  {steps:12000,name:"End of the Silk Road",x:200,y:830,fact:"You've walked the length of the ancient world. Merchants who completed this journey changed history."},
 ];
 
 // ═══ STATE ═══
 let steps=parseInt(localStorage.getItem('pw_steps')||'0');
+let cyclingKm=parseFloat(localStorage.getItem('pw_cycling')||'0');
+let isCycling=false;
 let streak=parseInt(localStorage.getItem('pw_streak')||'0');
 let unlockedPuppy=JSON.parse(localStorage.getItem('pw_unlocked')||'[]');
 let lastSpaceWpIdx=parseInt(localStorage.getItem('pw_sp_wp')||'0');
 let lastEarthWpIdx=parseInt(localStorage.getItem('pw_e_wp')||'0');
 let stepsInSession=0,currentPuppyState='idle',lastPeak=0,accelHistory=[];
+let isCyclingActive=false; // true only between "Start cycling" and "Stop cycling"
 let idleTimer=null,motionMode=false,manualMode=false,heartCooldown=false,activePanel=null;
 let wakeLock=null;
 
@@ -542,27 +645,169 @@ function buildClouds(){
   const sc=document.getElementById('scene');
   [[90,30,80,35],[130,40,130,55],[70,24,55,28]].forEach(([w,h,top,dur],i)=>{const cl=document.createElement('div');cl.className='cloud';cl.style.cssText=`width:${w}px;height:${h}px;top:${top}px;left:-${w+20}px;animation:drift ${dur}s linear infinite;animation-delay:${i*10}s;`;cl.innerHTML=`<div style="position:absolute;width:${w*.6}px;height:${h*1.4}px;background:#fff;border-radius:50%;top:-${h*.5}px;left:${w*.2}px;"></div>`;sc.appendChild(cl);});
 }
-function updateTimeOfDay(){document.body.classList.toggle('night-mode',new Date().getHours()>=20||new Date().getHours()<6);}
+// ═══ REALISTIC SLEEP PATTERN ═══
+// Night (8pm-6am): deep sleep baseline. Day: occasional naps if idle.
+// Any real movement (steps or cycling) always overrides instantly.
+let forcedNightOverride=null; // null=use real clock, true=force night, false=force day
+function isNightHours(){
+  if(forcedNightOverride!==null) return forcedNightOverride;
+  const h=new Date().getHours();
+  return h>=20||h<6;
+}
+function updateTimeOfDay(){
+  document.body.classList.toggle('night-mode',isNightHours());
+  applySleepBaseline();
+}
+// Called whenever idle (no recent steps) to nudge puppy toward its natural baseline
+function applySleepBaseline(){
+  if(isCyclingActive) return; // never interrupt active cycling
+  const now=Date.now();
+  const secsSinceStep=(now-lastPeak)/1000;
+  // Only apply baseline if puppy has been idle a little while (not mid-walk)
+  if(secsSinceStep<10) return;
+
+  if(isNightHours()){
+    // Nighttime: settle into sleep if idle
+    if(currentPuppyState!=='sleepy'){
+      stepsInSession=0;
+      setPuppyState('sleepy');
+    }
+  } else {
+    // Daytime: occasional naps after longer idle stretches
+    if(secsSinceStep>60&&currentPuppyState!=='sleepy'&&currentPuppyState!=='idle'){
+      stepsInSession=Math.max(0,stepsInSession-30);
+      updateMoodFromSession();
+    }
+  }
+}
+// Check baseline periodically (every 20s) — lightweight, battery friendly
+setInterval(applySleepBaseline,20000);
 buildStars();buildClouds();updateTimeOfDay();setInterval(updateTimeOfDay,60000);
 
-// ═══ SPACE CANVAS ═══
-function buildSpaceCanvas(){
-  const canvas=document.getElementById('space-canvas');const ctx=canvas.getContext('2d');
-  function resize(){canvas.width=canvas.offsetWidth||280;canvas.height=canvas.offsetHeight||240;draw();}
-  function draw(){const w=canvas.width,h=canvas.height;ctx.fillStyle='#060d1f';ctx.fillRect(0,0,w,h);for(let i=0;i<140;i++){const x=(Math.sin(i*137.5+13)*0.5+0.5)*w;const y=(Math.sin(i*97.1+7)*0.5+0.5)*h;ctx.fillStyle=`rgba(255,255,255,${0.25+Math.sin(i*0.5)*0.25})`;ctx.beginPath();ctx.arc(x,y,i%10===0?1.4:0.7,0,Math.PI*2);ctx.fill();}}
-  new ResizeObserver(resize).observe(canvas.parentElement);setTimeout(resize,80);
+// ═══ SOLAR SYSTEM ORRERY (full-journey overview map) ═══
+// Each waypoint gets a fixed Y position down the SVG — Sun at top (y=20),
+// edge of solar system at bottom (y=460). Spacecraft marker shows exactly
+// where you are right now among all of them.
+const ORRERY_Y_START=30, ORRERY_Y_END=455;
+
+function buildOrrery(){
+  const starsG=document.getElementById('orrery-stars');
+  const orbitsG=document.getElementById('orrery-orbits');
+  const bodiesG=document.getElementById('orrery-bodies');
+  const svgNS='http://www.w3.org/2000/svg';
+
+  // Background starfield — fixed, decorative
+  for(let i=0;i<70;i++){
+    const x=(Math.sin(i*137.5+13)*0.5+0.5)*340;
+    const y=(Math.sin(i*97.1+7)*0.5+0.5)*480;
+    const r=i%9===0?1.3:0.6;
+    const c=document.createElementNS(svgNS,'circle');
+    c.setAttribute('cx',x.toFixed(1));c.setAttribute('cy',y.toFixed(1));c.setAttribute('r',r);
+    c.setAttribute('fill',`rgba(255,255,255,${(0.3+Math.sin(i)*0.3).toFixed(2)})`);
+    starsG.appendChild(c);
+  }
+
+  // Sun at the very top
+  const sun=document.createElementNS(svgNS,'circle');
+  sun.setAttribute('cx','170');sun.setAttribute('cy','14');sun.setAttribute('r','10');
+  sun.setAttribute('fill','#ffd76a');
+  bodiesG.appendChild(sun);
+
+  // Vertical center guide line (the "orbit path" the craft travels down)
+  const guide=document.createElementNS(svgNS,'line');
+  guide.setAttribute('x1','170');guide.setAttribute('y1',ORRERY_Y_START);
+  guide.setAttribute('x2','170');guide.setAttribute('y2',ORRERY_Y_END);
+  guide.setAttribute('stroke','rgba(255,255,255,0.12)');
+  guide.setAttribute('stroke-width','1');
+  guide.setAttribute('stroke-dasharray','3,4');
+  orbitsG.appendChild(guide);
+
+  // Place each waypoint body down the line, alternating label side L/R for readability
+  SPACE_WAYPOINTS.forEach((wp,i)=>{
+    const t=i/(SPACE_WAYPOINTS.length-1);
+    const y=ORRERY_Y_START+t*(ORRERY_Y_END-ORRERY_Y_START);
+    const bodyR=wp.size>0?Math.max(5,Math.min(15,wp.size/4.2)):2.5;
+    const cx=170;
+
+    if(wp.size>0){
+      const planet=document.createElementNS(svgNS,'circle');
+      planet.setAttribute('cx',cx);planet.setAttribute('cy',y.toFixed(1));planet.setAttribute('r',bodyR);
+      planet.setAttribute('fill',wp.color);
+      planet.id=`orrery-body-${i}`;
+      bodiesG.appendChild(planet);
+    } else {
+      // Asteroid belt — small scattered dots instead of one body
+      for(let a=0;a<5;a++){
+        const ax=cx+(Math.sin(a*53+i)*22);
+        const ay=y+(Math.cos(a*71+i)*5);
+        const dot=document.createElementNS(svgNS,'circle');
+        dot.setAttribute('cx',ax.toFixed(1));dot.setAttribute('cy',ay.toFixed(1));dot.setAttribute('r','1.6');
+        dot.setAttribute('fill','#999988');
+        bodiesG.appendChild(dot);
+      }
+    }
+
+    // Label — alternate left/right side of the line so text never collides with the next one
+    const side=i%2===0?1:-1;
+    const labelX=cx+side*(bodyR+14);
+    const label=document.createElementNS(svgNS,'text');
+    label.setAttribute('x',labelX.toFixed(1));label.setAttribute('y',(y+3).toFixed(1));
+    label.setAttribute('text-anchor',side>0?'start':'end');
+    label.setAttribute('font-size','9.5');
+    label.setAttribute('font-weight','600');
+    label.setAttribute('fill','rgba(255,255,255,0.55)');
+    label.textContent=wp.name.length>16?wp.name.split(' ')[0]:wp.name;
+    bodiesG.appendChild(label);
+  });
 }
-buildSpaceCanvas();
+buildOrrery();
 
 // ═══ EARTH SVG ═══
 function buildEarthRoute(){
-  const svg=document.getElementById('route-svg');const rl=document.getElementById('route-line');
+  const svgNS='http://www.w3.org/2000/svg';
+  const decorG=document.getElementById('route-decor');
+  const dotsG=document.getElementById('route-dots');
+  const rl=document.getElementById('route-line');
+
+  // Decorative terrain shapes — scaled up for the larger 340x880 viewBox
+  const sea=document.createElementNS(svgNS,'ellipse');
+  sea.setAttribute('cx','170');sea.setAttribute('cy','480');sea.setAttribute('rx','90');sea.setAttribute('ry','220');
+  sea.setAttribute('fill','#0d2a4a');sea.setAttribute('opacity','0.35');
+  decorG.appendChild(sea);
+
   rl.setAttribute('points',EARTH_WAYPOINTS.map(w=>`${w.x},${w.y}`).join(' '));
+
   EARTH_WAYPOINTS.forEach((wp,i)=>{
-    const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.setAttribute('cx',wp.x);c.setAttribute('cy',wp.y);c.setAttribute('r','5');c.id=`rdot-${i}`;c.setAttribute('class','route-dot locked');svg.appendChild(c);
-    const t=document.createElementNS('http://www.w3.org/2000/svg','text');
-    t.setAttribute('x',wp.x+8);t.setAttribute('y',wp.y+4);t.setAttribute('font-size','7.5');t.setAttribute('fill','rgba(255,255,255,0.45)');t.textContent=wp.name.split(',')[0];svg.appendChild(t);
+    const c=document.createElementNS(svgNS,'circle');
+    c.setAttribute('cx',wp.x);c.setAttribute('cy',wp.y);c.setAttribute('r','9');
+    c.id=`rdot-${i}`;c.setAttribute('class','route-dot locked');
+    dotsG.appendChild(c);
+
+    // White outline ring so dots stand out clearly against the dark map
+    const ring=document.createElementNS(svgNS,'circle');
+    ring.setAttribute('cx',wp.x);ring.setAttribute('cy',wp.y);ring.setAttribute('r','9');
+    ring.setAttribute('fill','none');ring.setAttribute('stroke','rgba(255,255,255,0.4)');ring.setAttribute('stroke-width','1');
+    dotsG.appendChild(ring);
+
+    // Label placed below the dot, alternating offset so consecutive labels don't collide
+    const labelY=wp.y+24;
+    const label=document.createElementNS(svgNS,'text');
+    label.setAttribute('x',wp.x);label.setAttribute('y',labelY);
+    label.setAttribute('text-anchor','middle');
+    label.setAttribute('font-size','12');
+    label.setAttribute('font-weight','700');
+    label.setAttribute('fill','rgba(255,255,255,0.85)');
+    label.textContent=wp.name.split(',')[0];
+    dotsG.appendChild(label);
+
+    // Step count under the name
+    const stepLabel=document.createElementNS(svgNS,'text');
+    stepLabel.setAttribute('x',wp.x);stepLabel.setAttribute('y',labelY+14);
+    stepLabel.setAttribute('text-anchor','middle');
+    stepLabel.setAttribute('font-size','9');
+    stepLabel.setAttribute('fill','rgba(255,255,255,0.4)');
+    stepLabel.textContent=wp.steps.toLocaleString()+' steps';
+    dotsG.appendChild(stepLabel);
   });
 }
 buildEarthRoute();
@@ -576,6 +821,14 @@ function setPuppyState(state){
   pTongue.style.opacity=state==='happy'?'1':'0';
   pBlushL.style.opacity=state==='happy'?'1':'0';pBlushR.style.opacity=state==='happy'?'1':'0';
   pZzz.style.opacity=state==='sleepy'?'1':'0';
+  // Safety net: sleepy always means no helmet, no matter how we got here
+  if(sl&&isCyclingActive){
+    isCyclingActive=false;
+    helmet.classList.remove('visible');
+    cycleToggleBtn.style.background='';
+    cycleToggleBtn.style.color='';
+    cycleToggleBtn.textContent='🚴';
+  }
   const moods=[{min:0,e:'😴'},{min:1,e:'🐾'},{min:30,e:'😊'},{min:80,e:'🥳'}];
   moodEl.textContent=(moods.slice().reverse().find(m=>m.min<=stepsInSession)||moods[0]).e;
 }
@@ -585,13 +838,100 @@ function updateMoodFromSession(){
   if(m.state!==currentPuppyState){setPuppyState(m.state);const msgs={sleepy:'Zzz... *snore*',idle:'Woof! 🐾 Ready!',walking:'Woof woof! Walk walk! 🐾',happy:'WOOF WOOF WOOF!! 🥳🐾'};showBanner(msgs[m.state]);}
 }
 
+// ═══ CYCLING MODE — manual toggle, mutually exclusive with walking ═══
+const helmet = document.getElementById('p-helmet');
+const cyclingBar = document.getElementById('cycling-bar');
+const cyclingFill = document.getElementById('cycling-fill');
+const cyclingKmEl = document.getElementById('cycling-km');
+const cycleToggleBtn = document.getElementById('cycle-toggle-btn');
+
+function setPuppyStateDirect(state){
+  if(currentPuppyState===state)return;
+  currentPuppyState=state;puppy.className='state-'+state;
+  const sl=state==='sleepy';
+  pEyeL.style.height=sl?'3px':'7px';pEyeR.style.height=sl?'3px':'7px';
+  pEyeL.style.borderRadius=sl?'2px':'50%';pEyeR.style.borderRadius=sl?'2px':'50%';
+  pTongue.style.opacity=state==='happy'?'1':'0';
+  pBlushL.style.opacity=state==='happy'?'1':'0';pBlushR.style.opacity=state==='happy'?'1':'0';
+  pZzz.style.opacity=state==='sleepy'?'1':'0';
+  moodEl.textContent=state==='cycling'?'🚴':moodEl.textContent;
+}
+
+// Tap the floating bike button: Ready? puppy switches to bike mode immediately
+cycleToggleBtn.addEventListener('click',()=>{
+  if(!isCyclingActive){
+    startCycling();
+  } else {
+    stopCycling();
+  }
+});
+
+function startCycling(){
+  isCyclingActive=true;
+  clearTimeout(idleTimer);
+  helmet.classList.add('visible');
+  puppy.classList.remove('state-walking','state-happy','state-idle','state-sleepy');
+  puppy.classList.add('state-cycling');
+  currentPuppyState='cycling';
+  cycleToggleBtn.style.background='#34c759';
+  cycleToggleBtn.style.color='#fff';
+  cycleToggleBtn.textContent='🛑';
+  cyclingBar.classList.add('visible');
+  showBanner('Woof! Ready to ride! 🐶⛑️');
+}
+
+function stopCycling(){
+  isCyclingActive=false;
+  helmet.classList.remove('visible');
+  cycleToggleBtn.style.background='';
+  cycleToggleBtn.style.color='';
+  cycleToggleBtn.textContent='🚴';
+  showBanner('Woof! Ride done! 🐾');
+  // Return puppy to whatever its walking mood actually is
+  currentPuppyState='__reset__'; // force re-evaluation
+  updateMoodFromSession();
+}
+
+// Called when Apple Health sync brings in actual cycling distance later
+// Only updates the NUMBER — does not control helmet visibility anymore
+function setCycling(km){
+  cyclingKm=km;
+  localStorage.setItem('pw_cycling',cyclingKm);
+  const pct=Math.min(100,(km/10)*100);
+  cyclingFill.style.width=pct+'%';
+  cyclingKmEl.textContent=km.toFixed(1)+' km';
+  document.getElementById('cycling-count').innerHTML=km.toFixed(1)+'<span style="font-size:13px;font-weight:600"> km</span>';
+  if(km>0){
+    cyclingBar.classList.add('visible');
+  } else {
+    cyclingBar.classList.remove('visible');
+  }
+}
+
 // ═══ STEPS ═══
 function registerStep(){
+  // Steps still count for the counters/milestones, but don't fight the puppy's
+  // visual state while actively cycling (helmet mode stays until you tap stop)
   steps++;stepsInSession++;lastPeak=Date.now();
   clearTimeout(idleTimer);
-  if(currentPuppyState==='sleepy')setPuppyState('idle');
-  idleTimer=setTimeout(()=>{stepsInSession=Math.max(0,stepsInSession-10);updateMoodFromSession();if(stepsInSession<30)showBanner('Whimper... woof? Walk more? 🥺🐾');},12000);
-  updateMoodFromSession();updateHUD();updateBadges();
+  if(!isCyclingActive){
+    // Movement ALWAYS wakes the puppy instantly, even at 3am — real walking wins
+    if(currentPuppyState==='sleepy'){
+      setPuppyState('idle');
+      if(isNightHours())showBanner('Woof?! Up for a night walk! 🌙🐾');
+    }
+    // Shorter idle timeout at night — puppy settles back to sleep faster after stopping
+    const idleDelay=isNightHours()?6000:12000;
+    idleTimer=setTimeout(()=>{
+      stepsInSession=Math.max(0,stepsInSession-10);
+      updateMoodFromSession();
+      if(stepsInSession<30){
+        showBanner(isNightHours()?'Yawn... sleepy time 😴🐾':'Whimper... woof? Walk more? 🥺🐾');
+      }
+    },idleDelay);
+    updateMoodFromSession();
+  }
+  updateHUD();updateBadges();
   if(activePanel==='space')updateSpacePanel();
   if(activePanel==='earth')updateEarthPanel();
   checkPuppyMilestones();saveState();spawnHeart();
@@ -646,10 +986,50 @@ function updateSpacePanel(){
   document.getElementById('sp-name').textContent=wp.name;document.getElementById('sp-fact').textContent=wp.fact;
   document.getElementById('sp-dist').textContent=(steps*1000000).toLocaleString()+' km traveled';
   document.getElementById('sp-step-mirror').textContent=steps.toLocaleString()+' steps';
-  const body=document.getElementById('space-body');const label=document.getElementById('space-label');
-  if(wp.size>0){body.style.cssText=`position:absolute;right:24px;width:${wp.size}px;height:${wp.size}px;border-radius:50%;background:${wp.color};top:${wp.y}%;transform:translateY(-50%);box-shadow:0 0 18px ${wp.color}55;transition:all 0.8s;`;label.style.cssText=`position:absolute;right:6px;font-size:10px;color:rgba(255,255,255,0.55);font-weight:600;text-align:center;top:calc(${wp.y}% + ${wp.size/2+5}px);transition:all 0.8s;`;label.textContent=wp.name.split(' ')[0];}
-  else{body.style.display='none';label.textContent='';}
-  document.getElementById('spacecraft').style.bottom=(12+(idx/(SPACE_WAYPOINTS.length-1))*70)+'%';
+
+  // Position the "you are here" spacecraft marker on the orrery line,
+  // interpolating smoothly between the current and next waypoint based on progress
+  const craftG=document.getElementById('orrery-craft');
+  craftG.innerHTML='';
+  const svgNS='http://www.w3.org/2000/svg';
+  const tCur=idx/(SPACE_WAYPOINTS.length-1);
+  let tPos=tCur;
+  if(nextWp){
+    const segProgress=Math.min(1,Math.max(0,(steps-wp.steps)/(nextWp.steps-wp.steps)));
+    const tNext=(idx+1)/(SPACE_WAYPOINTS.length-1);
+    tPos=tCur+(tNext-tCur)*segProgress;
+  }
+  const craftY=ORRERY_Y_START+tPos*(ORRERY_Y_END-ORRERY_Y_START);
+
+  // Glow ring behind the craft so "you are here" pops against the planets
+  const glow=document.createElementNS(svgNS,'circle');
+  glow.setAttribute('cx','170');glow.setAttribute('cy',craftY.toFixed(1));glow.setAttribute('r','16');
+  glow.setAttribute('fill','none');glow.setAttribute('stroke','#ffd76a');glow.setAttribute('stroke-width','1.5');glow.setAttribute('opacity','0.55');
+  craftG.appendChild(glow);
+
+  const craftText=document.createElementNS(svgNS,'text');
+  craftText.setAttribute('x','170');craftText.setAttribute('y',(craftY+5).toFixed(1));
+  craftText.setAttribute('text-anchor','middle');craftText.setAttribute('font-size','16');
+  craftText.textContent='🛸';
+  craftG.appendChild(craftText);
+
+  const youAreHere=document.createElementNS(svgNS,'text');
+  youAreHere.setAttribute('x','170');youAreHere.setAttribute('y',(craftY-14).toFixed(1));
+  youAreHere.setAttribute('text-anchor','middle');youAreHere.setAttribute('font-size','8');
+  youAreHere.setAttribute('font-weight','700');youAreHere.setAttribute('fill','#ffd76a');
+  youAreHere.textContent='YOU ARE HERE';
+  craftG.appendChild(youAreHere);
+
+  // Auto-scroll the space-scene container so the craft stays in view
+  const sceneEl=document.getElementById('space-scene');
+  const scrollFrac=tPos;
+  const svgEl=document.getElementById('orrery-svg');
+  if(svgEl&&sceneEl){
+    const totalH=svgEl.getBoundingClientRect().height||sceneEl.clientHeight*2;
+    const targetScroll=Math.max(0,(craftY/480)*totalH-sceneEl.clientHeight/2);
+    sceneEl.scrollTo({top:targetScroll,behavior:'smooth'});
+  }
+
   if(nextWp){document.getElementById('sp-progress-fill').style.width=Math.min(100,((steps-wp.steps)/(nextWp.steps-wp.steps))*100)+'%';document.getElementById('sp-next').textContent=`Next: ${nextWp.name} at ${nextWp.steps.toLocaleString()} steps`;}
   else{document.getElementById('sp-progress-fill').style.width='100%';document.getElementById('sp-next').textContent='Solar system complete!';}
 }
@@ -661,6 +1041,44 @@ function updateEarthPanel(){
   document.getElementById('e-steps').textContent=steps.toLocaleString()+' steps walked';
   document.getElementById('e-step-mirror').textContent=steps.toLocaleString()+' steps';
   EARTH_WAYPOINTS.forEach((_,i)=>{const dot=document.getElementById(`rdot-${i}`);if(!dot)return;dot.setAttribute('class',`route-dot ${i<idx?'unlocked':i===idx?'current':'locked'}`);});
+
+  // "You are here" marker — interpolated smoothly toward the next city based on progress
+  const svgNS='http://www.w3.org/2000/svg';
+  const craftG=document.getElementById('route-craft');
+  craftG.innerHTML='';
+  let px=wp.x,py=wp.y;
+  if(nextWp){
+    const segProgress=Math.min(1,Math.max(0,(steps-wp.steps)/(nextWp.steps-wp.steps)));
+    px=wp.x+(nextWp.x-wp.x)*segProgress;
+    py=wp.y+(nextWp.y-wp.y)*segProgress;
+  }
+  const glow=document.createElementNS(svgNS,'circle');
+  glow.setAttribute('cx',px.toFixed(1));glow.setAttribute('cy',py.toFixed(1));glow.setAttribute('r','15');
+  glow.setAttribute('fill','none');glow.setAttribute('stroke','#f5c518');glow.setAttribute('stroke-width','2');glow.setAttribute('opacity','0.7');
+  craftG.appendChild(glow);
+
+  const pawText=document.createElementNS(svgNS,'text');
+  pawText.setAttribute('x',px.toFixed(1));pawText.setAttribute('y',(py+5).toFixed(1));
+  pawText.setAttribute('text-anchor','middle');pawText.setAttribute('font-size','15');
+  pawText.textContent='🐾';
+  craftG.appendChild(pawText);
+
+  const youAreHere=document.createElementNS(svgNS,'text');
+  youAreHere.setAttribute('x',px.toFixed(1));youAreHere.setAttribute('y',(py-16).toFixed(1));
+  youAreHere.setAttribute('text-anchor','middle');youAreHere.setAttribute('font-size','9');
+  youAreHere.setAttribute('font-weight','700');youAreHere.setAttribute('fill','#f5c518');
+  youAreHere.textContent='YOU ARE HERE';
+  craftG.appendChild(youAreHere);
+
+  // Auto-scroll the map so your current position is centered in view
+  const mapEl=document.getElementById('earth-map');
+  const svgEl=document.getElementById('route-svg');
+  if(svgEl&&mapEl){
+    const totalH=svgEl.getBoundingClientRect().height||mapEl.clientHeight*3;
+    const targetScroll=Math.max(0,(py/880)*totalH-mapEl.clientHeight/2);
+    mapEl.scrollTo({top:targetScroll,behavior:'smooth'});
+  }
+
   if(nextWp){document.getElementById('earth-progress-fill').style.width=Math.min(100,((steps-wp.steps)/(nextWp.steps-wp.steps))*100)+'%';document.getElementById('e-next').textContent=`Next: ${nextWp.name} at ${nextWp.steps.toLocaleString()} steps`;}
   else{document.getElementById('earth-progress-fill').style.width='100%';document.getElementById('e-next').textContent='Silk Road complete!';}
 }
@@ -686,7 +1104,12 @@ function showBanner(msg){moodBanner.textContent=msg;moodBanner.classList.add('vi
 
 // ═══ ② SAVE / EXPORT / IMPORT ═══
 function saveState(){
-  try{localStorage.setItem('pw_steps',steps);localStorage.setItem('pw_streak',streak);localStorage.setItem('pw_unlocked',JSON.stringify(unlockedPuppy));}catch(e){}
+  try{
+    localStorage.setItem('pw_steps',steps);
+    localStorage.setItem('pw_streak',streak);
+    localStorage.setItem('pw_unlocked',JSON.stringify(unlockedPuppy));
+    localStorage.setItem('pw_cycling',cyclingKm);
+  }catch(e){}
 }
 
 function getExportData(){
@@ -801,9 +1224,11 @@ document.getElementById('smenu-testmode').addEventListener('click',()=>{
   document.getElementById('onboarding-screen').classList.add('hidden');
   if(!motionMode&&!manualMode){manualMode=true;setPuppyState('idle');}
   testPanel.style.bottom='0';
+  document.body.classList.add('test-mode-open');
 });
 document.getElementById('close-test').addEventListener('click',()=>{
   testPanel.style.bottom='-340px';
+  document.body.classList.remove('test-mode-open');
 });
 
 // Auto-walk toggle
@@ -878,6 +1303,42 @@ document.querySelectorAll('.jump-btn').forEach(btn=>{
   });
 });
 
+// Cycling test buttons
+document.querySelectorAll('.cycle-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const add=parseFloat(btn.dataset.cycle);
+    if(add===0){
+      setCycling(0);
+      if(isCyclingActive) stopCycling();
+      showBanner('Cycling reset 🚫');
+    } else {
+      setCycling(cyclingKm+add);
+      // Test buttons also trigger the actual helmet, same as the real toggle
+      if(!isCyclingActive) startCycling();
+      showBanner(`+${add}km cycling! 🐶⛑️`);
+    }
+  });
+});
+
+// Night/day test override
+document.getElementById('force-night-btn').addEventListener('click',()=>{
+  forcedNightOverride=true;
+  updateTimeOfDay();
+  applySleepBaseline();
+  showBanner('🌙 Forced night mode');
+});
+document.getElementById('force-day-btn').addEventListener('click',()=>{
+  forcedNightOverride=false;
+  updateTimeOfDay();
+  applySleepBaseline();
+  showBanner('☀️ Forced day mode');
+});
+document.getElementById('clear-force-btn').addEventListener('click',()=>{
+  forcedNightOverride=null;
+  updateTimeOfDay();
+  showBanner('🕐 Using real device clock');
+});
+
 // ═══ STREAK ═══
 const today=new Date().toDateString();const lastDay=localStorage.getItem('pw_last_day');
 if(lastDay&&lastDay!==today){const yest=new Date(Date.now()-86400000).toDateString();if(lastDay===yest&&steps>=1000)streak++;else if(lastDay!==yest)streak=0;localStorage.setItem('pw_streak',streak);}
@@ -888,34 +1349,42 @@ localStorage.setItem('pw_last_day',today);
 function checkURLSteps(){
   try{
     const params=new URLSearchParams(window.location.search);
-    const urlSteps=parseInt(params.get('steps'));
-    if(!urlSteps||isNaN(urlSteps)||urlSteps<=0)return;
+    const urlSteps=parseInt(params.get('steps')||'0');
+    const urlCycling=parseFloat(params.get('cycling')||'0');
+    // Exit only if BOTH are empty — cycling-only sync must still work
+    if((!urlSteps||isNaN(urlSteps)||urlSteps<=0)&&(!urlCycling||urlCycling<=0))return;
 
-    // Show a friendly confirmation before applying
     const added=urlSteps>steps?urlSteps-steps:0;
-    const msg=added>0
-      ?`🍎 Apple Health sent ${urlSteps.toLocaleString()} steps (+${added.toLocaleString()} new)\n\nGive these steps to your puppy?`
-      :`🍎 Apple Health sent ${urlSteps.toLocaleString()} steps.\n\nYour puppy already has ${steps.toLocaleString()} steps — update to Health total?`;
+    const stepInfo=urlSteps>0?'🐾 Steps: '+urlSteps.toLocaleString()+(added>0?' (+'+added.toLocaleString()+' new)':''):'';
+    const cycleInfo=urlCycling>0?'🚴 Cycling: '+urlCycling.toFixed(1)+' km':'';
+    const lines=[stepInfo,cycleInfo].filter(Boolean).join('\n');
+    const msg='🍎 Apple Health sync!\n\n'+lines+'\n\nUpdate your puppy?';
 
-    // Small delay so onboarding screen loads first
     setTimeout(()=>{
       if(confirm(msg)){
         const prev=steps;
-        if(urlSteps>steps){
-          steps=urlSteps;
-          stepsInSession+=Math.min(urlSteps-prev,200);
-        } else {
-          steps=urlSteps;
+        if(urlSteps>0){
+          steps=Math.max(steps,urlSteps);
+          stepsInSession+=Math.min(Math.abs(urlSteps-prev),200);
         }
+        // Cycling always applied independently of steps
+        if(urlCycling>0) setCycling(urlCycling);
+
+        // Walking mood — only escalate, never let it block cycling helmet
+        if(urlSteps>3000){stepsInSession=Math.max(stepsInSession,80);}
+        else if(urlSteps>1000){stepsInSession=Math.max(stepsInSession,30);}
+
         updateMoodFromSession();
-        updateHUD();
-        updateBadges();
-        checkPuppyMilestones();
-        saveState();
-        showBanner(`🍎 ${steps.toLocaleString()} steps! Woof woof!! 🐾`);
-        setPuppyState(stepsInSession>=80?'happy':stepsInSession>=30?'walking':'idle');
+        // setCycling now only updates the distance number/bar — helmet stays
+        // tied to the manual "start/stop cycling" toggle, not auto-sync
+
+        updateHUD();updateBadges();checkPuppyMilestones();saveState();
+
+        const parts=[];
+        if(urlSteps>0) parts.push(steps.toLocaleString()+' steps');
+        if(urlCycling>0) parts.push(urlCycling.toFixed(1)+'km cycling');
+        showBanner('🍎 '+parts.join(' + ')+'! Woof! 🐶'+(urlCycling>0?'⛑️':''));
       }
-      // Clean URL so refresh doesn't re-import
       window.history.replaceState({},'',window.location.pathname);
     },800);
   }catch(e){}
@@ -928,6 +1397,10 @@ const curSi=getCurrentSpaceWpIdx(),curEi=getCurrentEarthWpIdx();
 if(curSi>lastSpaceWpIdx){badgeSpace.textContent=curSi-lastSpaceWpIdx;badgeSpace.classList.add('visible');}
 if(curEi>lastEarthWpIdx){badgeEarth.textContent=curEi-lastEarthWpIdx;badgeEarth.classList.add('visible');}
 setPuppyState('sleepy');updateHUD();
+// Restore cycling state — only the distance number/bar persists across reloads.
+// Helmet/active-riding mode intentionally does NOT persist (you must tap
+// "Start cycling" again each session — it represents "currently riding now").
+if(cyclingKm>0) setCycling(cyclingKm);
 checkURLSteps();
 </script>
 </body>
