@@ -167,7 +167,7 @@ body.night-mode .tab-badge{border-color:var(--night);}
 /* space */
 #panel-space{display:none;flex-direction:column;height:100%;background:var(--space);color:#fff;}
 #panel-space.active{display:flex;}
-#space-scene{position:relative;flex:1;overflow-y:auto;overflow-x:hidden;min-height:0;-webkit-overflow-scrolling:touch;}
+#space-scene{position:relative;flex:1;overflow-x:auto;overflow-y:hidden;min-height:0;-webkit-overflow-scrolling:touch;}
 #orrery-svg{display:block;}
 #space-canvas{position:absolute;inset:0;width:100%;height:100%;}
 #spacecraft{position:absolute;left:50%;bottom:15%;transform:translateX(-50%);font-size:36px;transition:bottom 1s ease;animation:engineGlow 1.5s ease-in-out infinite;}
@@ -184,7 +184,7 @@ body.night-mode .tab-badge{border-color:var(--night);}
 /* earth */
 #panel-earth{display:none;flex-direction:column;height:100%;background:var(--earth);color:#fff;}
 #panel-earth.active{display:flex;}
-#earth-map{flex:1;position:relative;overflow:hidden;min-height:0;}
+#earth-map{flex:1;position:relative;overflow-x:auto;overflow-y:hidden;min-height:0;-webkit-overflow-scrolling:touch;}
 #earth-map svg{width:100%;height:100%;}
 .route-dot{transition:opacity 0.3s;}
 .route-dot.unlocked{fill:#7ec850;}.route-dot.locked{fill:rgba(255,255,255,0.18);}.route-dot.current{fill:var(--gold);animation:routePulse 1.5s ease-in-out infinite;}
@@ -507,8 +507,8 @@ body.night-mode #export-screen{background:var(--night);}
     <div class="panel-header"><h2>🚀 Cosmic Travel</h2><button class="close-btn" id="close-panel-space">✕</button></div>
     <div class="panel-step-pill"><span class="psp-icon">🐾</span><div class="psp-text"><div class="psp-label">Your walk powers this</div><div class="psp-val" id="sp-step-mirror">0 steps</div><div class="psp-note">Same steps as your puppy walk</div></div></div>
     <div id="space-scene">
-      <svg id="orrery-svg" viewBox="0 0 340 480" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;">
-        <rect width="340" height="480" fill="#060d1f"/>
+      <svg id="orrery-svg" viewBox="0 0 2520 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="height:100%;width:auto;display:block;">
+        <rect width="2520" height="260" fill="#060d1f"/>
         <g id="orrery-stars"></g>
         <g id="orrery-orbits"></g>
         <g id="orrery-bodies"></g>
@@ -527,8 +527,8 @@ body.night-mode #export-screen{background:var(--night);}
     <div class="panel-header"><h2>🗺️ Ancient Routes</h2><button class="close-btn" id="close-panel-earth">✕</button></div>
     <div class="panel-step-pill" style="background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.1);"><span class="psp-icon">🐾</span><div class="psp-text"><div class="psp-label">Your walk powers this</div><div class="psp-val" id="e-step-mirror">0 steps</div><div class="psp-note">Same steps as your puppy walk</div></div></div>
     <div id="earth-map">
-      <svg id="route-svg" viewBox="0 0 340 880" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;">
-        <rect width="340" height="880" fill="#1a3a1a"/>
+      <svg id="route-svg" viewBox="0 0 2420 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="height:100%;width:auto;display:block;">
+        <rect width="2420" height="260" fill="#1a3a1a"/>
         <g id="route-decor"></g>
         <polyline id="route-line" points="" stroke="#7ec850" stroke-width="2" fill="none" stroke-dasharray="5,4" opacity="0.5"/>
         <g id="route-dots"></g>
@@ -580,17 +580,17 @@ const SPACE_WAYPOINTS=[
   {steps:15000,name:'Edge of solar system',color:'#ffffff',size:6,y:6,fact:'You\'ve reached the heliopause — where solar wind meets interstellar space. True explorer.'},
 ];
 const EARTH_WAYPOINTS=[
-  {steps:0,name:"Xi'an, China",x:250,y:50,fact:"The Silk Road begins here — linking East to West for 1,500 years of trade and culture."},
-  {steps:400,name:"Dunhuang Caves",x:120,y:130,fact:"The Mogao Caves hold 492 temples of Buddhist murals. Hidden manuscripts sealed here for 900 years."},
-  {steps:900,name:"Samarkand",x:240,y:210,fact:"The jewel of Central Asia. Its Registan Square is one of the world's most magnificent ensembles."},
-  {steps:1500,name:"Merv, Turkmenistan",x:110,y:290,fact:"Once the largest city in the world. A flourishing oasis where caravans rested for weeks."},
-  {steps:2200,name:"Ctesiphon, Persia",x:230,y:370,fact:"Capital of the Persian empire. The Arch of Ctesiphon is the largest unreinforced brick vault ever built."},
-  {steps:3000,name:"Antioch",x:120,y:450,fact:"Gateway to the Mediterranean — where Greek, Roman, and Eastern cultures blended for centuries."},
-  {steps:4000,name:"Constantinople",x:240,y:530,fact:"Where East meets West. The Hagia Sophia stood as the world's largest cathedral for nearly 1,000 years."},
-  {steps:5500,name:"Alexandria, Egypt",x:110,y:610,fact:"Home to the greatest library of the ancient world — at its peak holding 700,000 scrolls."},
-  {steps:7000,name:"Rome",x:230,y:690,fact:"At its peak Rome housed over 1 million people — not matched again until 19th-century London."},
-  {steps:9000,name:"Venice",x:120,y:760,fact:"Marco Polo sailed from here to reach China, directly inspiring the Age of Exploration."},
-  {steps:12000,name:"End of the Silk Road",x:200,y:830,fact:"You've walked the length of the ancient world. Merchants who completed this journey changed history."},
+  {steps:0,name:"Xi'an, China",x:50,y:130,fact:"The Silk Road begins here — linking East to West for 1,500 years of trade and culture."},
+  {steps:400,name:"Dunhuang Caves",x:280,y:70,fact:"The Mogao Caves hold 492 temples of Buddhist murals. Hidden manuscripts sealed here for 900 years."},
+  {steps:900,name:"Samarkand",x:510,y:190,fact:"The jewel of Central Asia. Its Registan Square is one of the world's most magnificent ensembles."},
+  {steps:1500,name:"Merv, Turkmenistan",x:740,y:80,fact:"Once the largest city in the world. A flourishing oasis where caravans rested for weeks."},
+  {steps:2200,name:"Ctesiphon, Persia",x:970,y:200,fact:"Capital of the Persian empire. The Arch of Ctesiphon is the largest unreinforced brick vault ever built."},
+  {steps:3000,name:"Antioch",x:1200,y:90,fact:"Gateway to the Mediterranean — where Greek, Roman, and Eastern cultures blended for centuries."},
+  {steps:4000,name:"Constantinople",x:1430,y:190,fact:"Where East meets West. The Hagia Sophia stood as the world's largest cathedral for nearly 1,000 years."},
+  {steps:5500,name:"Alexandria, Egypt",x:1660,y:80,fact:"Home to the greatest library of the ancient world — at its peak holding 700,000 scrolls."},
+  {steps:7000,name:"Rome",x:1890,y:190,fact:"At its peak Rome housed over 1 million people — not matched again until 19th-century London."},
+  {steps:9000,name:"Venice",x:2120,y:80,fact:"Marco Polo sailed from here to reach China, directly inspiring the Age of Exploration."},
+  {steps:12000,name:"End of the Silk Road",x:2350,y:160,fact:"You've walked the length of the ancient world. Merchants who completed this journey changed history."},
 ];
 
 // ═══ STATE ═══
@@ -685,10 +685,10 @@ setInterval(applySleepBaseline,20000);
 buildStars();buildClouds();updateTimeOfDay();setInterval(updateTimeOfDay,60000);
 
 // ═══ SOLAR SYSTEM ORRERY (full-journey overview map) ═══
-// Each waypoint gets a fixed Y position down the SVG — Sun at top (y=20),
-// edge of solar system at bottom (y=460). Spacecraft marker shows exactly
-// where you are right now among all of them.
-const ORRERY_Y_START=30, ORRERY_Y_END=455;
+// Each waypoint gets a fixed X position across the SVG — Sun at left (x=30),
+// edge of solar system at right (x=2480). Spacecraft marker shows exactly
+// where you are right now among all of them. Scrolls horizontally.
+const ORRERY_X_START=30, ORRERY_X_END=2480, ORRERY_CY=130;
 
 function buildOrrery(){
   const starsG=document.getElementById('orrery-stars');
@@ -696,10 +696,10 @@ function buildOrrery(){
   const bodiesG=document.getElementById('orrery-bodies');
   const svgNS='http://www.w3.org/2000/svg';
 
-  // Background starfield — fixed, decorative
-  for(let i=0;i<70;i++){
-    const x=(Math.sin(i*137.5+13)*0.5+0.5)*340;
-    const y=(Math.sin(i*97.1+7)*0.5+0.5)*480;
+  // Background starfield — fixed, decorative, spans the full wide canvas
+  for(let i=0;i<160;i++){
+    const x=(Math.sin(i*137.5+13)*0.5+0.5)*2520;
+    const y=(Math.sin(i*97.1+7)*0.5+0.5)*260;
     const r=i%9===0?1.3:0.6;
     const c=document.createElementNS(svgNS,'circle');
     c.setAttribute('cx',x.toFixed(1));c.setAttribute('cy',y.toFixed(1));c.setAttribute('r',r);
@@ -707,57 +707,67 @@ function buildOrrery(){
     starsG.appendChild(c);
   }
 
-  // Sun at the very top
+  // Sun at the very left
   const sun=document.createElementNS(svgNS,'circle');
-  sun.setAttribute('cx','170');sun.setAttribute('cy','14');sun.setAttribute('r','10');
+  sun.setAttribute('cx','14');sun.setAttribute('cy',ORRERY_CY);sun.setAttribute('r','12');
   sun.setAttribute('fill','#ffd76a');
   bodiesG.appendChild(sun);
 
-  // Vertical center guide line (the "orbit path" the craft travels down)
+  // Horizontal center guide line (the "orbit path" the craft travels along)
   const guide=document.createElementNS(svgNS,'line');
-  guide.setAttribute('x1','170');guide.setAttribute('y1',ORRERY_Y_START);
-  guide.setAttribute('x2','170');guide.setAttribute('y2',ORRERY_Y_END);
+  guide.setAttribute('x1',ORRERY_X_START);guide.setAttribute('y1',ORRERY_CY);
+  guide.setAttribute('x2',ORRERY_X_END);guide.setAttribute('y2',ORRERY_CY);
   guide.setAttribute('stroke','rgba(255,255,255,0.12)');
   guide.setAttribute('stroke-width','1');
   guide.setAttribute('stroke-dasharray','3,4');
   orbitsG.appendChild(guide);
 
-  // Place each waypoint body down the line, alternating label side L/R for readability
+  // Place each waypoint body along the line, alternating label side above/below for readability
   SPACE_WAYPOINTS.forEach((wp,i)=>{
     const t=i/(SPACE_WAYPOINTS.length-1);
-    const y=ORRERY_Y_START+t*(ORRERY_Y_END-ORRERY_Y_START);
-    const bodyR=wp.size>0?Math.max(5,Math.min(15,wp.size/4.2)):2.5;
-    const cx=170;
+    const x=ORRERY_X_START+t*(ORRERY_X_END-ORRERY_X_START);
+    const bodyR=wp.size>0?Math.max(7,Math.min(20,wp.size/2.6)):3;
+    const cy=ORRERY_CY;
 
     if(wp.size>0){
       const planet=document.createElementNS(svgNS,'circle');
-      planet.setAttribute('cx',cx);planet.setAttribute('cy',y.toFixed(1));planet.setAttribute('r',bodyR);
+      planet.setAttribute('cx',x.toFixed(1));planet.setAttribute('cy',cy);planet.setAttribute('r',bodyR);
       planet.setAttribute('fill',wp.color);
       planet.id=`orrery-body-${i}`;
       bodiesG.appendChild(planet);
     } else {
       // Asteroid belt — small scattered dots instead of one body
-      for(let a=0;a<5;a++){
-        const ax=cx+(Math.sin(a*53+i)*22);
-        const ay=y+(Math.cos(a*71+i)*5);
+      for(let a=0;a<6;a++){
+        const ax=x+(Math.sin(a*53+i)*8);
+        const ay=cy+(Math.cos(a*71+i)*22);
         const dot=document.createElementNS(svgNS,'circle');
-        dot.setAttribute('cx',ax.toFixed(1));dot.setAttribute('cy',ay.toFixed(1));dot.setAttribute('r','1.6');
+        dot.setAttribute('cx',ax.toFixed(1));dot.setAttribute('cy',ay.toFixed(1));dot.setAttribute('r','1.8');
         dot.setAttribute('fill','#999988');
         bodiesG.appendChild(dot);
       }
     }
 
-    // Label — alternate left/right side of the line so text never collides with the next one
-    const side=i%2===0?1:-1;
-    const labelX=cx+side*(bodyR+14);
+    // Label — alternate above/below the line so text never collides with the next one
+    const side=i%2===0?-1:1;
+    const labelY=cy+side*(bodyR+16);
     const label=document.createElementNS(svgNS,'text');
-    label.setAttribute('x',labelX.toFixed(1));label.setAttribute('y',(y+3).toFixed(1));
-    label.setAttribute('text-anchor',side>0?'start':'end');
-    label.setAttribute('font-size','9.5');
+    label.setAttribute('x',x.toFixed(1));label.setAttribute('y',labelY.toFixed(1));
+    label.setAttribute('text-anchor','middle');
+    label.setAttribute('font-size','13');
     label.setAttribute('font-weight','600');
-    label.setAttribute('fill','rgba(255,255,255,0.55)');
-    label.textContent=wp.name.length>16?wp.name.split(' ')[0]:wp.name;
+    label.setAttribute('fill','rgba(255,255,255,0.6)');
+    label.textContent=wp.name.length>18?wp.name.split(' ')[0]:wp.name;
     bodiesG.appendChild(label);
+
+    // Step count under/above the name
+    const stepY=labelY+side*13;
+    const stepLabel=document.createElementNS(svgNS,'text');
+    stepLabel.setAttribute('x',x.toFixed(1));stepLabel.setAttribute('y',stepY.toFixed(1));
+    stepLabel.setAttribute('text-anchor','middle');
+    stepLabel.setAttribute('font-size','9.5');
+    stepLabel.setAttribute('fill','rgba(255,255,255,0.35)');
+    stepLabel.textContent=wp.steps.toLocaleString()+' steps';
+    bodiesG.appendChild(stepLabel);
   });
 }
 buildOrrery();
@@ -769,40 +779,43 @@ function buildEarthRoute(){
   const dotsG=document.getElementById('route-dots');
   const rl=document.getElementById('route-line');
 
-  // Decorative terrain shapes — scaled up for the larger 340x880 viewBox
+  // Decorative terrain — a long wavy "sea" band scaled for the wide 2420x260 horizontal canvas
   const sea=document.createElementNS(svgNS,'ellipse');
-  sea.setAttribute('cx','170');sea.setAttribute('cy','480');sea.setAttribute('rx','90');sea.setAttribute('ry','220');
-  sea.setAttribute('fill','#0d2a4a');sea.setAttribute('opacity','0.35');
+  sea.setAttribute('cx','1210');sea.setAttribute('cy','135');sea.setAttribute('rx','1250');sea.setAttribute('ry','55');
+  sea.setAttribute('fill','#0d2a4a');sea.setAttribute('opacity','0.3');
   decorG.appendChild(sea);
 
   rl.setAttribute('points',EARTH_WAYPOINTS.map(w=>`${w.x},${w.y}`).join(' '));
 
   EARTH_WAYPOINTS.forEach((wp,i)=>{
     const c=document.createElementNS(svgNS,'circle');
-    c.setAttribute('cx',wp.x);c.setAttribute('cy',wp.y);c.setAttribute('r','9');
+    c.setAttribute('cx',wp.x);c.setAttribute('cy',wp.y);c.setAttribute('r','10');
     c.id=`rdot-${i}`;c.setAttribute('class','route-dot locked');
     dotsG.appendChild(c);
 
     // White outline ring so dots stand out clearly against the dark map
     const ring=document.createElementNS(svgNS,'circle');
-    ring.setAttribute('cx',wp.x);ring.setAttribute('cy',wp.y);ring.setAttribute('r','9');
+    ring.setAttribute('cx',wp.x);ring.setAttribute('cy',wp.y);ring.setAttribute('r','10');
     ring.setAttribute('fill','none');ring.setAttribute('stroke','rgba(255,255,255,0.4)');ring.setAttribute('stroke-width','1');
     dotsG.appendChild(ring);
 
-    // Label placed below the dot, alternating offset so consecutive labels don't collide
-    const labelY=wp.y+24;
+    // Label flips above/below the dot based on its y position, so it always stays
+    // inside the 0-260 canvas height regardless of where the city sits vertically
+    const labelAbove=wp.y>130;
+    const labelY=labelAbove?wp.y-26:wp.y+30;
     const label=document.createElementNS(svgNS,'text');
     label.setAttribute('x',wp.x);label.setAttribute('y',labelY);
     label.setAttribute('text-anchor','middle');
-    label.setAttribute('font-size','12');
+    label.setAttribute('font-size','13');
     label.setAttribute('font-weight','700');
-    label.setAttribute('fill','rgba(255,255,255,0.85)');
+    label.setAttribute('fill','rgba(255,255,255,0.9)');
     label.textContent=wp.name.split(',')[0];
     dotsG.appendChild(label);
 
-    // Step count under the name
+    // Step count on the outer side of the name
+    const stepY=labelAbove?labelY-14:labelY+14;
     const stepLabel=document.createElementNS(svgNS,'text');
-    stepLabel.setAttribute('x',wp.x);stepLabel.setAttribute('y',labelY+14);
+    stepLabel.setAttribute('x',wp.x);stepLabel.setAttribute('y',stepY);
     stepLabel.setAttribute('text-anchor','middle');
     stepLabel.setAttribute('font-size','9');
     stepLabel.setAttribute('fill','rgba(255,255,255,0.4)');
@@ -999,35 +1012,34 @@ function updateSpacePanel(){
     const tNext=(idx+1)/(SPACE_WAYPOINTS.length-1);
     tPos=tCur+(tNext-tCur)*segProgress;
   }
-  const craftY=ORRERY_Y_START+tPos*(ORRERY_Y_END-ORRERY_Y_START);
+  const craftX=ORRERY_X_START+tPos*(ORRERY_X_END-ORRERY_X_START);
 
   // Glow ring behind the craft so "you are here" pops against the planets
   const glow=document.createElementNS(svgNS,'circle');
-  glow.setAttribute('cx','170');glow.setAttribute('cy',craftY.toFixed(1));glow.setAttribute('r','16');
+  glow.setAttribute('cx',craftX.toFixed(1));glow.setAttribute('cy',ORRERY_CY);glow.setAttribute('r','18');
   glow.setAttribute('fill','none');glow.setAttribute('stroke','#ffd76a');glow.setAttribute('stroke-width','1.5');glow.setAttribute('opacity','0.55');
   craftG.appendChild(glow);
 
   const craftText=document.createElementNS(svgNS,'text');
-  craftText.setAttribute('x','170');craftText.setAttribute('y',(craftY+5).toFixed(1));
-  craftText.setAttribute('text-anchor','middle');craftText.setAttribute('font-size','16');
+  craftText.setAttribute('x',craftX.toFixed(1));craftText.setAttribute('y',(ORRERY_CY+6).toFixed(1));
+  craftText.setAttribute('text-anchor','middle');craftText.setAttribute('font-size','20');
   craftText.textContent='🛸';
   craftG.appendChild(craftText);
 
   const youAreHere=document.createElementNS(svgNS,'text');
-  youAreHere.setAttribute('x','170');youAreHere.setAttribute('y',(craftY-14).toFixed(1));
-  youAreHere.setAttribute('text-anchor','middle');youAreHere.setAttribute('font-size','8');
+  youAreHere.setAttribute('x',craftX.toFixed(1));youAreHere.setAttribute('y',(ORRERY_CY-26).toFixed(1));
+  youAreHere.setAttribute('text-anchor','middle');youAreHere.setAttribute('font-size','10');
   youAreHere.setAttribute('font-weight','700');youAreHere.setAttribute('fill','#ffd76a');
   youAreHere.textContent='YOU ARE HERE';
   craftG.appendChild(youAreHere);
 
-  // Auto-scroll the space-scene container so the craft stays in view
+  // Auto-scroll the space-scene container horizontally so the craft stays in view
   const sceneEl=document.getElementById('space-scene');
-  const scrollFrac=tPos;
   const svgEl=document.getElementById('orrery-svg');
   if(svgEl&&sceneEl){
-    const totalH=svgEl.getBoundingClientRect().height||sceneEl.clientHeight*2;
-    const targetScroll=Math.max(0,(craftY/480)*totalH-sceneEl.clientHeight/2);
-    sceneEl.scrollTo({top:targetScroll,behavior:'smooth'});
+    const totalW=svgEl.getBoundingClientRect().width||sceneEl.clientWidth*4;
+    const targetScroll=Math.max(0,(craftX/2520)*totalW-sceneEl.clientWidth/2);
+    sceneEl.scrollTo({left:targetScroll,behavior:'smooth'});
   }
 
   if(nextWp){document.getElementById('sp-progress-fill').style.width=Math.min(100,((steps-wp.steps)/(nextWp.steps-wp.steps))*100)+'%';document.getElementById('sp-next').textContent=`Next: ${nextWp.name} at ${nextWp.steps.toLocaleString()} steps`;}
