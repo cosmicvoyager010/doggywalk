@@ -167,36 +167,34 @@ body.night-mode .tab-badge{border-color:var(--night);}
 /* space */
 #panel-space{display:none;flex-direction:column;height:100%;background:var(--space);color:#fff;}
 #panel-space.active{display:flex;}
-#space-scene{position:relative;flex:1;overflow-x:auto;overflow-y:hidden;min-height:0;-webkit-overflow-scrolling:touch;cursor:grab;}
-#space-scene:active{cursor:grabbing;}
+#space-scene{position:relative;flex:1;overflow-x:auto;overflow-y:hidden;min-height:0;-webkit-overflow-scrolling:touch;}
 #orrery-svg{display:block;}
-#space-info{padding:10px 16px calc(var(--sab) + 10px);background:var(--space-mid);border-top:1px solid rgba(255,255,255,0.07);flex-shrink:0;}
-.s-name{font-size:var(--fs-xl);font-weight:800;color:#fff;margin-bottom:4px;}
-.s-fact{font-size:var(--fs-sm);color:rgba(255,255,255,0.75);line-height:1.55;margin-bottom:8px;}
-.s-dist{font-size:var(--fs-xs);font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.8px;}
+#space-canvas{position:absolute;inset:0;width:100%;height:100%;}
+#spacecraft{position:absolute;left:50%;bottom:15%;transform:translateX(-50%);font-size:36px;transition:bottom 1s ease;animation:engineGlow 1.5s ease-in-out infinite;}
+#space-body{position:absolute;right:24px;border-radius:50%;transition:all 0.8s;}
+#space-label{position:absolute;right:8px;font-size:10px;color:rgba(255,255,255,0.55);font-weight:600;text-align:center;transition:all 0.8s;}
+#space-info{padding:12px 16px calc(var(--sab) + 12px);background:var(--space-mid);border-top:1px solid rgba(255,255,255,0.07);flex-shrink:0;}
+.s-name{font-size:var(--fs-xl);font-weight:800;color:#fff;margin-bottom:5px;}
+.s-fact{font-size:var(--fs-base);color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:10px;}
+.s-dist{font-size:var(--fs-sm);font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.8px;}
 #sp-progress-track{background:rgba(255,255,255,0.1);border-radius:10px;height:5px;margin-top:5px;overflow:hidden;}
 #sp-progress-fill{height:100%;background:linear-gradient(90deg,#4466ff,var(--gold));border-radius:10px;transition:width 0.4s;width:0%;}
-.s-next{font-size:var(--fs-xs);color:rgba(255,255,255,0.45);margin-top:4px;}
-/* scale toggle */
-#scale-toggle{display:flex;gap:5px;padding:6px 16px 0;}
-.scale-btn{flex:1;padding:5px 0;border-radius:8px;border:1.5px solid rgba(255,255,255,0.18);background:transparent;font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.2s;letter-spacing:0.3px;}
-.scale-btn.active{background:rgba(255,200,50,0.2);border-color:var(--gold);color:var(--gold);}
+.s-next{font-size:var(--fs-sm);color:rgba(255,255,255,0.45);margin-top:4px;}
 
 /* earth */
-#panel-earth{display:none;flex-direction:column;height:100%;background:#0d1f36;color:#fff;}
+#panel-earth{display:none;flex-direction:column;height:100%;background:var(--earth);color:#fff;}
 #panel-earth.active{display:flex;}
-#earth-map{flex:1;position:relative;overflow:hidden;min-height:0;}
-#map-tiles{position:absolute;inset:0;}
-#route-overlay{position:absolute;inset:0;pointer-events:none;}
-#earth-info{padding:10px 16px calc(var(--sab) + 10px);background:#0a1828;border-top:1px solid rgba(255,255,255,0.07);flex-shrink:0;}
-.e-name{font-size:var(--fs-xl);font-weight:800;color:#fff;margin-bottom:4px;}
-.e-fact{font-size:var(--fs-sm);color:rgba(255,255,255,0.75);line-height:1.55;margin-bottom:8px;}
-.e-steps{font-size:var(--fs-xs);font-weight:700;color:#7ec850;text-transform:uppercase;letter-spacing:0.8px;}
-#earth-progress-track{background:rgba(255,255,255,0.1);border-radius:10px;height:5px;margin-top:5px;overflow:hidden;}
-#earth-progress-fill{height:100%;background:linear-gradient(90deg,#7ec850,var(--gold));border-radius:10px;transition:width 0.4s;width:0%;}
-.e-next{font-size:var(--fs-xs);color:rgba(255,255,255,0.45);margin-top:4px;}
+#earth-map{flex:1;position:relative;overflow-x:auto;overflow-y:hidden;min-height:0;-webkit-overflow-scrolling:touch;}
+#earth-map svg{width:100%;height:100%;}
 .route-dot{transition:opacity 0.3s;}
 .route-dot.unlocked{fill:#7ec850;}.route-dot.locked{fill:rgba(255,255,255,0.18);}.route-dot.current{fill:var(--gold);animation:routePulse 1.5s ease-in-out infinite;}
+#earth-info{padding:12px 16px calc(var(--sab) + 12px);background:var(--earth-mid);border-top:1px solid rgba(255,255,255,0.07);flex-shrink:0;}
+.e-name{font-size:var(--fs-xl);font-weight:800;color:#fff;margin-bottom:5px;}
+.e-fact{font-size:var(--fs-base);color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:10px;}
+.e-steps{font-size:var(--fs-sm);font-weight:700;color:#7ec850;text-transform:uppercase;letter-spacing:0.8px;}
+#earth-progress-track{background:rgba(255,255,255,0.1);border-radius:10px;height:5px;margin-top:5px;overflow:hidden;}
+#earth-progress-fill{height:100%;background:linear-gradient(90deg,#7ec850,var(--gold));border-radius:10px;transition:width 0.4s;width:0%;}
+.e-next{font-size:var(--fs-sm);color:rgba(255,255,255,0.45);margin-top:4px;}
 
 /* ── TREASURE ── */
 #treasure-pop{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:var(--card);border-radius:22px;padding:24px;text-align:center;z-index:100;max-width:310px;width:calc(100% - 40px);backdrop-filter:blur(14px);box-shadow:0 8px 40px rgba(0,0,0,0.18);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);}
@@ -376,6 +374,7 @@ body.night-mode #export-screen{background:var(--night);}
 <!-- Settings menu -->
 <div id="settings-menu">
   <div class="smenu-item" id="smenu-import"><span class="smenu-icon">🍎</span>Add steps from Health</div>
+  <div class="smenu-item" id="smenu-past-ride"><span class="smenu-icon">🚴</span>Add past ride</div>
   <div class="smenu-item" id="smenu-export"><span class="smenu-icon">💾</span>Save / Restore data</div>
   <div class="smenu-item" id="smenu-testmode"><span class="smenu-icon">🧪</span>Test mode</div>
   <div class="smenu-item" id="smenu-reset"><span class="smenu-icon">🔄</span>Reset all progress</div>
@@ -506,16 +505,11 @@ body.night-mode #export-screen{background:var(--night);}
 <!-- Side panel -->
 <div id="side-panel">
   <div id="panel-space">
-    <div class="panel-header"><h2>🚀 Solar System</h2><button class="close-btn" id="close-panel-space">✕</button></div>
-    <div class="panel-step-pill"><span class="psp-icon">🐾</span><div class="psp-text"><div class="psp-label">Your walk powers this</div><div class="psp-val" id="sp-step-mirror">0 steps</div><div class="psp-note">Starting from Earth — travel outward!</div></div></div>
-    <div id="scale-toggle">
-      <button class="scale-btn active" data-scale="simple">① Simple</button>
-      <button class="scale-btn" data-scale="compressed">② Compressed</button>
-      <button class="scale-btn" data-scale="true">③ True scale</button>
-    </div>
+    <div class="panel-header"><h2>🚀 Cosmic Travel</h2><button class="close-btn" id="close-panel-space">✕</button></div>
+    <div class="panel-step-pill"><span class="psp-icon">🐾</span><div class="psp-text"><div class="psp-label">Your walk powers this</div><div class="psp-val" id="sp-step-mirror">0 steps</div><div class="psp-note">Same steps as your puppy walk</div></div></div>
     <div id="space-scene">
-      <svg id="orrery-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMid meet" style="height:100%;display:block;">
-        <rect id="orrery-bg" width="100%" height="100%" fill="#060d1f"/>
+      <svg id="orrery-svg" viewBox="0 0 2520 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="height:100%;width:auto;display:block;">
+        <rect width="2520" height="260" fill="#060d1f"/>
         <g id="orrery-stars"></g>
         <g id="orrery-orbits"></g>
         <g id="orrery-bodies"></g>
@@ -523,34 +517,28 @@ body.night-mode #export-screen{background:var(--night);}
       </svg>
     </div>
     <div id="space-info">
-      <div class="s-name" id="sp-name">On Earth</div>
-      <div class="s-fact" id="sp-fact">Walk 300 steps to reach the Moon's orbit! The Moon is 384,400 km away.</div>
-      <div class="s-dist" id="sp-dist">0 km from Earth</div>
+      <div class="s-name" id="sp-name">On the launchpad</div>
+      <div class="s-fact" id="sp-fact">Walk 500 steps to break Earth's orbit and begin your solar system journey.</div>
+      <div class="s-dist" id="sp-dist">0 km traveled</div>
       <div id="sp-progress-track"><div id="sp-progress-fill"></div></div>
       <div class="s-next" id="sp-next"></div>
     </div>
   </div>
   <div id="panel-earth">
-    <div class="panel-header"><h2>🗺️ Silk Road</h2><button class="close-btn" id="close-panel-earth">✕</button></div>
-    <div class="panel-step-pill" style="background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.1);"><span class="psp-icon">🐾</span><div class="psp-text"><div class="psp-label">Your walk powers this</div><div class="psp-val" id="e-step-mirror">0 steps</div><div class="psp-note">Xi'an → Constantinople → Rome</div></div></div>
+    <div class="panel-header"><h2>🗺️ Ancient Routes</h2><button class="close-btn" id="close-panel-earth">✕</button></div>
+    <div class="panel-step-pill" style="background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.1);"><span class="psp-icon">🐾</span><div class="psp-text"><div class="psp-label">Your walk powers this</div><div class="psp-val" id="e-step-mirror">0 steps</div><div class="psp-note">Same steps as your puppy walk</div></div></div>
     <div id="earth-map">
-      <div id="map-tiles"></div>
-      <svg id="route-overlay" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="glow-filter">
-            <feGaussianBlur stdDeviation="3" result="blur"/>
-            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
-        <polyline id="route-line-bg" points="" stroke="rgba(255,200,80,0.25)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <polyline id="route-line-fg" points="" stroke="#f5c518" stroke-width="2.5" fill="none" stroke-dasharray="8,5" stroke-linecap="round" opacity="0.9"/>
+      <svg id="route-svg" viewBox="0 0 2420 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="height:100%;width:auto;display:block;">
+        <rect width="2420" height="260" fill="#1a3a1a"/>
+        <g id="route-decor"></g>
+        <polyline id="route-line" points="" stroke="#7ec850" stroke-width="2" fill="none" stroke-dasharray="5,4" opacity="0.5"/>
         <g id="route-dots"></g>
         <g id="route-craft"></g>
       </svg>
     </div>
     <div id="earth-info">
-      <div class="e-name" id="e-name">Xi'an, China</div>
-      <div class="e-fact" id="e-fact">The Silk Road begins here — linking East to West for 1,500 years of trade and culture.</div>
+      <div class="e-name" id="e-name">Starting in Xi'an, China</div>
+      <div class="e-fact" id="e-fact">The Silk Road begins here — the greatest trade route in history.</div>
       <div class="e-steps" id="e-steps">0 steps walked</div>
       <div id="earth-progress-track"><div id="earth-progress-fill"></div></div>
       <div class="e-next" id="e-next"></div>
@@ -564,6 +552,52 @@ body.night-mode #export-screen{background:var(--night);}
   <div class="t-title" id="t-title"></div>
   <div class="t-desc" id="t-desc"></div>
   <button class="t-close" id="t-close">Woof woof! More walk! 🐾</button>
+</div>
+
+<!-- RIDE END MODAL -->
+<div id="ride-end-modal" style="
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;padding:24px;">
+  <div style="background:var(--card);border-radius:24px;padding:24px;width:100%;max-width:320px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.2);">
+    <div style="font-size:44px;margin-bottom:8px;">🐶⛑️</div>
+    <div style="font-size:20px;font-weight:800;color:var(--txt);margin-bottom:4px;">Great ride!</div>
+    <div id="ride-timer-summary" style="font-size:14px;color:var(--txt-m);margin-bottom:18px;"></div>
+    <div style="font-size:13px;font-weight:700;color:var(--txt-m);text-align:left;margin-bottom:6px;">How far did you ride?</div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+      <input id="ride-km-input" type="number" inputmode="decimal" placeholder="e.g. 12.5"
+        style="flex:1;font-size:28px;font-weight:800;text-align:center;border:2px solid rgba(52,199,89,0.4);border-radius:14px;padding:11px;background:#f8fff8;color:var(--txt);outline:none;">
+      <div style="font-size:18px;font-weight:700;color:var(--txt-m);">km</div>
+    </div>
+    <div style="font-size:11px;color:var(--txt-m);margin-bottom:16px;">Counts toward Silk Road &amp; Solar System too 🗺️🚀</div>
+    <div style="display:flex;gap:8px;">
+      <button id="ride-end-skip" style="flex:1;padding:12px;border-radius:14px;border:1.5px solid rgba(0,0,0,0.1);background:transparent;font-size:14px;font-weight:700;color:var(--txt-m);cursor:pointer;">Skip</button>
+      <button id="ride-end-save" style="flex:2;padding:12px;border-radius:14px;border:none;background:#34c759;color:#fff;font-size:14px;font-weight:800;cursor:pointer;">Save ride 🐾</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAST RIDE MODAL -->
+<div id="past-ride-modal" style="
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;padding:24px;">
+  <div style="background:var(--card);border-radius:24px;padding:24px;width:100%;max-width:320px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.2);">
+    <div style="font-size:44px;margin-bottom:8px;">🚴</div>
+    <div style="font-size:20px;font-weight:800;color:var(--txt);margin-bottom:4px;">Add a past ride</div>
+    <div style="font-size:13px;color:var(--txt-m);margin-bottom:18px;">Forgot to log it? No problem — add it now.</div>
+    <div style="font-size:13px;font-weight:700;color:var(--txt-m);text-align:left;margin-bottom:6px;">Distance</div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+      <input id="past-ride-km" type="number" inputmode="decimal" placeholder="e.g. 8.0"
+        style="flex:1;font-size:28px;font-weight:800;text-align:center;border:2px solid rgba(52,199,89,0.4);border-radius:14px;padding:11px;background:#f8fff8;color:var(--txt);outline:none;">
+      <div style="font-size:18px;font-weight:700;color:var(--txt-m);">km</div>
+    </div>
+    <div style="font-size:11px;color:var(--txt-m);margin-bottom:16px;">Counts toward maps &amp; puppy growth 🗺️🚀</div>
+    <div style="display:flex;gap:8px;">
+      <button id="past-ride-cancel" style="flex:1;padding:12px;border-radius:14px;border:1.5px solid rgba(0,0,0,0.1);background:transparent;font-size:14px;font-weight:700;color:var(--txt-m);cursor:pointer;">Cancel</button>
+      <button id="past-ride-save" style="flex:2;padding:12px;border-radius:14px;border:none;background:#34c759;color:#fff;font-size:14px;font-weight:800;cursor:pointer;">Add ride 🐾</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -580,36 +614,30 @@ const PUPPY_MILESTONES=[
   {steps:5000,emoji:'🌟',title:'5K Legend!',desc:'Five thousand steps! You and your puppy are legendary walkers now.'},
   {steps:10000,emoji:'🎉',title:'10,000 Steps!',desc:'TEN THOUSAND STEPS! Your puppy is the happiest dog in the universe.'},
 ];
-// Solar system waypoints — distances in AU from Earth
-// Real AU from Sun: Earth=1, Mars=1.52, Jupiter=5.2, Saturn=9.58, Uranus=19.2, Neptune=30.05
 const SPACE_WAYPOINTS=[
-  {steps:0,    name:'Earth',         color:'#4488cc',size:16,au:0,      fact:'Home! Earth is 150 million km from the Sun. The only known world with liquid water on the surface.'},
-  {steps:300,  name:'Moon',          color:'#ccccaa',size:10,au:0.00257,fact:'384,400 km away. The Moon orbits Earth every 27.3 days. Apollo 11 landed here on July 20, 1969.'},
-  {steps:800,  name:'Mars',          color:'#cc6644',size:13,au:0.52,   fact:'Olympus Mons on Mars is 21 km high — nearly 3x Everest. Mars has two small moons: Phobos and Deimos.'},
-  {steps:2000, name:'Asteroid Belt', color:'#999977',size:0, au:1.7,    fact:'Millions of rocky fragments between Mars and Jupiter. Ceres, the largest body, is 945 km wide.'},
-  {steps:3500, name:'Jupiter',       color:'#cc9966',size:28,au:4.2,    fact:"Jupiter's Great Red Spot is a storm wider than Earth, raging 400+ years. It has 95 known moons."},
-  {steps:5500, name:'Saturn',        color:'#ddcc77',size:24,au:8.58,   fact:"Saturn's rings are 282,000 km wide but only ~1 km thick. Its moon Titan has a thick nitrogen atmosphere."},
-  {steps:8000, name:'Uranus',        color:'#88ccdd',size:18,au:18.2,   fact:'Uranus rotates on its side — axial tilt of 98°. It has 13 known rings and 28 moons.'},
-  {steps:11000,name:'Neptune',       color:'#4466cc',size:17,au:29.05,  fact:"Neptune's winds reach 2,100 km/h — fastest in the solar system. Voyager 2 visited in 1989."},
-  {steps:15000,name:'Heliopause',    color:'#ffffff',size:5, au:100,    fact:"The edge of the Sun's influence. Voyager 1 crossed here in 2012, becoming the first human object in interstellar space."},
+  {steps:0,name:'On the launchpad',color:'#4488aa',size:42,y:75,fact:'Walk 500 steps to break Earth\'s orbit. Engines warming up...'},
+  {steps:500,name:'Earth orbit',color:'#4488cc',size:42,y:70,fact:'You\'ve broken free of gravity! 400 km above Earth, traveling at 28,000 km/h.'},
+  {steps:1000,name:'Past the Moon',color:'#aaaaaa',size:22,y:65,fact:'384,400 km from home. The Moon\'s craters come into full view as you sail past.'},
+  {steps:2000,name:'Approaching Mars',color:'#cc6644',size:30,y:56,fact:'The Red Planet glows ahead. Olympus Mons — Mars\'s volcano — is 3× the height of Everest.'},
+  {steps:3500,name:'The Asteroid Belt',color:'#888866',size:0,y:47,fact:'Millions of rocky fragments orbit the Sun here. Navigate carefully through the debris field!'},
+  {steps:5000,name:'Jupiter',color:'#cc9966',size:58,y:38,fact:'Jupiter\'s Great Red Spot is a storm larger than Earth — raging for over 400 years.'},
+  {steps:7000,name:'Saturn\'s rings',color:'#ddcc88',size:48,y:28,fact:'Saturn\'s rings stretch 282,000 km wide but are only 1 km thick. Like a giant vinyl record.'},
+  {steps:9000,name:'Uranus',color:'#88ccdd',size:36,y:20,fact:'Uranus rotates on its side — its axial tilt is 98°. It effectively rolls around the Sun.'},
+  {steps:12000,name:'Neptune',color:'#4466cc',size:34,y:13,fact:'Neptune\'s winds hit 2,100 km/h — fastest in the solar system. Voyager 2 visited in 1989.'},
+  {steps:15000,name:'Edge of solar system',color:'#ffffff',size:6,y:6,fact:'You\'ve reached the heliopause — where solar wind meets interstellar space. True explorer.'},
 ];
-// Scale modes: x positions computed per mode in buildOrrery()
-// 'simple' = evenly spaced, 'compressed' = log scale, 'true' = proportional AU
-let spaceScaleMode='simple';
-
-// Silk Road waypoints with real lat/lon coordinates
 const EARTH_WAYPOINTS=[
-  {steps:0,    name:"Xi'an, China",          lat:34.27,lon:108.93,fact:"Eastern terminus of the Silk Road, China's ancient capital for 1,000+ years. The Terracotta Army of Emperor Qin stands here."},
-  {steps:500,  name:"Dunhuang, China",        lat:40.14,lon:94.66, fact:"The Mogao Caves hold 492 chambers of Buddhist art. Sealed for 900 years and rediscovered in 1900 with 40,000 manuscripts inside."},
-  {steps:1200, name:"Samarkand, Uzbekistan",  lat:39.65,lon:66.97, fact:"Jewel of Central Asia, ruled by Tamerlane. The Registan Square's three madrasas are among the world's finest Islamic architecture."},
-  {steps:2000, name:"Merv, Turkmenistan",     lat:37.65,lon:62.18, fact:"Once the world's largest city with 200,000 people. A major oasis where caravans rested before crossing Persia."},
-  {steps:3000, name:"Ctesiphon, Iraq",        lat:33.09,lon:44.58, fact:"Capital of the Persian Sassanid Empire. The Arch of Ctesiphon — 37 m high — is the largest unreinforced brick vault ever built."},
-  {steps:4200, name:"Antioch, Turkey",        lat:36.20,lon:36.16, fact:"One of the most important cities of the ancient world, and where followers of Jesus were first called 'Christians' around 43 CE."},
-  {steps:5500, name:"Constantinople",         lat:41.01,lon:28.97, fact:"Rome's eastern capital for 1,000 years. The Hagia Sophia, built in 537 CE, was the world's largest cathedral for nearly a millennium."},
-  {steps:7000, name:"Alexandria, Egypt",      lat:31.20,lon:29.92, fact:"Founded by Alexander the Great in 331 BCE. The Library of Alexandria held up to 700,000 scrolls — the greatest knowledge center of antiquity."},
-  {steps:9000, name:"Rome, Italy",            lat:41.90,lon:12.50, fact:"At its peak, Rome held over 1 million people — a size not matched again until 19th-century London. The Forum was the center of the ancient world."},
-  {steps:11000,name:"Venice, Italy",          lat:45.44,lon:12.32, fact:"Marco Polo left Venice in 1271, traveled to China, and returned in 1295. His accounts directly inspired Columbus's voyages."},
-  {steps:14000,name:"Paris — Silk Road End!", lat:48.85,lon:2.35,  fact:"You have walked the length of the ancient world — Xi'an to Paris, over 7,000 km! The Silk Road connected civilizations for 1,500 years."},
+  {steps:0,name:"Xi'an, China",x:50,y:130,fact:"The Silk Road begins here — linking East to West for 1,500 years of trade and culture."},
+  {steps:400,name:"Dunhuang Caves",x:280,y:70,fact:"The Mogao Caves hold 492 temples of Buddhist murals. Hidden manuscripts sealed here for 900 years."},
+  {steps:900,name:"Samarkand",x:510,y:190,fact:"The jewel of Central Asia. Its Registan Square is one of the world's most magnificent ensembles."},
+  {steps:1500,name:"Merv, Turkmenistan",x:740,y:80,fact:"Once the largest city in the world. A flourishing oasis where caravans rested for weeks."},
+  {steps:2200,name:"Ctesiphon, Persia",x:970,y:200,fact:"Capital of the Persian empire. The Arch of Ctesiphon is the largest unreinforced brick vault ever built."},
+  {steps:3000,name:"Antioch",x:1200,y:90,fact:"Gateway to the Mediterranean — where Greek, Roman, and Eastern cultures blended for centuries."},
+  {steps:4000,name:"Constantinople",x:1430,y:190,fact:"Where East meets West. The Hagia Sophia stood as the world's largest cathedral for nearly 1,000 years."},
+  {steps:5500,name:"Alexandria, Egypt",x:1660,y:80,fact:"Home to the greatest library of the ancient world — at its peak holding 700,000 scrolls."},
+  {steps:7000,name:"Rome",x:1890,y:190,fact:"At its peak Rome housed over 1 million people — not matched again until 19th-century London."},
+  {steps:9000,name:"Venice",x:2120,y:80,fact:"Marco Polo sailed from here to reach China, directly inspiring the Age of Exploration."},
+  {steps:12000,name:"End of the Silk Road",x:2350,y:160,fact:"You've walked the length of the ancient world. Merchants who completed this journey changed history."},
 ];
 
 // ═══ STATE ═══
@@ -703,269 +731,146 @@ function applySleepBaseline(){
 setInterval(applySleepBaseline,20000);
 buildStars();buildClouds();updateTimeOfDay();setInterval(updateTimeOfDay,60000);
 
-// ═══ SOLAR SYSTEM ORRERY — horizontal L→R, starts at Earth, 3 scale modes ═══
-const ORRERY_CY=145; // vertical center of the SVG
-
-// Compute X positions for each waypoint based on current scale mode
-function getOrreryXPositions(mode,svgWidth){
-  // AU distances from Earth (first wp = 0)
-  const aus = SPACE_WAYPOINTS.map(w=>w.au);
-  const maxAu = aus[aus.length-1];
-  const PAD=60, usable=svgWidth-PAD*2;
-  return aus.map(au=>{
-    if(mode==='simple'){
-      const t=SPACE_WAYPOINTS.indexOf(SPACE_WAYPOINTS.find(w=>w.au===au))/(SPACE_WAYPOINTS.length-1);
-      return PAD+t*usable;
-    } else if(mode==='compressed'){
-      // log scale — compresses the huge outer gaps nicely
-      const logMax=Math.log(maxAu+1);
-      return PAD+(Math.log(au+1)/logMax)*usable;
-    } else {
-      // true proportional AU
-      return PAD+(au/maxAu)*usable;
-    }
-  });
-}
+// ═══ SOLAR SYSTEM ORRERY (full-journey overview map) ═══
+// Each waypoint gets a fixed X position across the SVG — Sun at left (x=30),
+// edge of solar system at right (x=2480). Spacecraft marker shows exactly
+// where you are right now among all of them. Scrolls horizontally.
+const ORRERY_X_START=30, ORRERY_X_END=2480, ORRERY_CY=130;
 
 function buildOrrery(){
-  const scene=document.getElementById('space-scene');
-  const svg=document.getElementById('orrery-svg');
   const starsG=document.getElementById('orrery-stars');
   const orbitsG=document.getElementById('orrery-orbits');
   const bodiesG=document.getElementById('orrery-bodies');
   const svgNS='http://www.w3.org/2000/svg';
 
-  // SVG width depends on scale mode
-  let svgW;
-  if(spaceScaleMode==='simple') svgW=2000;
-  else if(spaceScaleMode==='compressed') svgW=2400;
-  else svgW=3600; // true scale needs more room
-  const svgH=290;
-
-  svg.setAttribute('viewBox',`0 0 ${svgW} ${svgH}`);
-  svg.setAttribute('width',svgW);
-  svg.setAttribute('height',svgH);
-  document.getElementById('orrery-bg').setAttribute('width',svgW);
-  document.getElementById('orrery-bg').setAttribute('height',svgH);
-
-  // Clear dynamic groups
-  starsG.innerHTML='';orbitsG.innerHTML='';bodiesG.innerHTML='';
-
-  // Starfield
-  for(let i=0;i<200;i++){
-    const x=(Math.sin(i*137.5+13)*0.5+0.5)*svgW;
-    const y=(Math.sin(i*97.1+7)*0.5+0.5)*svgH;
-    const r=i%9===0?1.4:0.7;
+  // Background starfield — fixed, decorative, spans the full wide canvas
+  for(let i=0;i<160;i++){
+    const x=(Math.sin(i*137.5+13)*0.5+0.5)*2520;
+    const y=(Math.sin(i*97.1+7)*0.5+0.5)*260;
+    const r=i%9===0?1.3:0.6;
     const c=document.createElementNS(svgNS,'circle');
     c.setAttribute('cx',x.toFixed(1));c.setAttribute('cy',y.toFixed(1));c.setAttribute('r',r);
-    c.setAttribute('fill',`rgba(255,255,255,${(0.25+Math.abs(Math.sin(i))*0.4).toFixed(2)})`);
+    c.setAttribute('fill',`rgba(255,255,255,${(0.3+Math.sin(i)*0.3).toFixed(2)})`);
     starsG.appendChild(c);
   }
 
-  const xs=getOrreryXPositions(spaceScaleMode,svgW);
+  // Sun at the very left
+  const sun=document.createElementNS(svgNS,'circle');
+  sun.setAttribute('cx','14');sun.setAttribute('cy',ORRERY_CY);sun.setAttribute('r','12');
+  sun.setAttribute('fill','#ffd76a');
+  bodiesG.appendChild(sun);
 
-  // Horizontal travel path
+  // Horizontal center guide line (the "orbit path" the craft travels along)
   const guide=document.createElementNS(svgNS,'line');
-  guide.setAttribute('x1',xs[0]);guide.setAttribute('y1',ORRERY_CY);
-  guide.setAttribute('x2',xs[xs.length-1]);guide.setAttribute('y2',ORRERY_CY);
-  guide.setAttribute('stroke','rgba(255,255,255,0.1)');
-  guide.setAttribute('stroke-width','1.5');
-  guide.setAttribute('stroke-dasharray','4,5');
+  guide.setAttribute('x1',ORRERY_X_START);guide.setAttribute('y1',ORRERY_CY);
+  guide.setAttribute('x2',ORRERY_X_END);guide.setAttribute('y2',ORRERY_CY);
+  guide.setAttribute('stroke','rgba(255,255,255,0.12)');
+  guide.setAttribute('stroke-width','1');
+  guide.setAttribute('stroke-dasharray','3,4');
   orbitsG.appendChild(guide);
 
+  // Place each waypoint body along the line, alternating label side above/below for readability
   SPACE_WAYPOINTS.forEach((wp,i)=>{
-    const x=xs[i];
+    const t=i/(SPACE_WAYPOINTS.length-1);
+    const x=ORRERY_X_START+t*(ORRERY_X_END-ORRERY_X_START);
+    const bodyR=wp.size>0?Math.max(7,Math.min(20,wp.size/2.6)):3;
+    const cy=ORRERY_CY;
 
-    if(wp.size===0){
-      // Asteroid belt — scatter of small dots
-      for(let a=0;a<10;a++){
-        const spread=spaceScaleMode==='true'?(xs[i+1]-xs[i])*0.4:30;
-        const ax=x+(Math.sin(a*53)*spread*0.5);
-        const ay=ORRERY_CY+(Math.cos(a*71+i)*32);
-        const dot=document.createElementNS(svgNS,'circle');
-        dot.setAttribute('cx',ax.toFixed(1));dot.setAttribute('cy',ay.toFixed(1));dot.setAttribute('r','2.2');
-        dot.setAttribute('fill','#999977');dot.setAttribute('opacity','0.7');
-        bodiesG.appendChild(dot);
-      }
-    } else {
-      const r=Math.max(8,Math.min(22,wp.size));
-
-      // Moon's small orbit ellipse around Earth
-      if(i===1){
-        const earthX=xs[0];
-        const moonOrbit=document.createElementNS(svgNS,'ellipse');
-        moonOrbit.setAttribute('cx',earthX);moonOrbit.setAttribute('cy',ORRERY_CY);
-        moonOrbit.setAttribute('rx',Math.abs(x-earthX));moonOrbit.setAttribute('ry','28');
-        moonOrbit.setAttribute('fill','none');
-        moonOrbit.setAttribute('stroke','rgba(200,200,180,0.2)');
-        moonOrbit.setAttribute('stroke-width','1');
-        moonOrbit.setAttribute('stroke-dasharray','3,4');
-        orbitsG.appendChild(moonOrbit);
-      }
-
-      // Saturn rings
-      if(wp.name==='Saturn'){
-        const ring=document.createElementNS(svgNS,'ellipse');
-        ring.setAttribute('cx',x);ring.setAttribute('cy',ORRERY_CY);
-        ring.setAttribute('rx',r+14);ring.setAttribute('ry','5');
-        ring.setAttribute('fill','none');
-        ring.setAttribute('stroke','#ccaa66');ring.setAttribute('stroke-width','4');
-        ring.setAttribute('opacity','0.65');
-        bodiesG.appendChild(ring);
-      }
-
+    if(wp.size>0){
       const planet=document.createElementNS(svgNS,'circle');
-      planet.setAttribute('cx',x.toFixed(1));planet.setAttribute('cy',ORRERY_CY);
-      planet.setAttribute('r',r);planet.setAttribute('fill',wp.color);
+      planet.setAttribute('cx',x.toFixed(1));planet.setAttribute('cy',cy);planet.setAttribute('r',bodyR);
+      planet.setAttribute('fill',wp.color);
       planet.id=`orrery-body-${i}`;
       bodiesG.appendChild(planet);
-
-      // Earth gets a tiny white atmosphere glow
-      if(i===0){
-        const atm=document.createElementNS(svgNS,'circle');
-        atm.setAttribute('cx',x.toFixed(1));atm.setAttribute('cy',ORRERY_CY);
-        atm.setAttribute('r',r+4);atm.setAttribute('fill','none');
-        atm.setAttribute('stroke','rgba(100,180,255,0.25)');atm.setAttribute('stroke-width','3');
-        bodiesG.appendChild(atm);
-        // tiny green dot = land hint
-        const land=document.createElementNS(svgNS,'circle');
-        land.setAttribute('cx',(x-3).toFixed(1));land.setAttribute('cy',(ORRERY_CY-3).toFixed(1));
-        land.setAttribute('r','4');land.setAttribute('fill','#4a9a50');land.setAttribute('opacity','0.7');
-        bodiesG.appendChild(land);
+    } else {
+      // Asteroid belt — small scattered dots instead of one body
+      for(let a=0;a<6;a++){
+        const ax=x+(Math.sin(a*53+i)*8);
+        const ay=cy+(Math.cos(a*71+i)*22);
+        const dot=document.createElementNS(svgNS,'circle');
+        dot.setAttribute('cx',ax.toFixed(1));dot.setAttribute('cy',ay.toFixed(1));dot.setAttribute('r','1.8');
+        dot.setAttribute('fill','#999988');
+        bodiesG.appendChild(dot);
       }
     }
 
-    // Label — alternate above/below for readability
+    // Label — alternate above/below the line so text never collides with the next one
     const side=i%2===0?-1:1;
-    const bodyR=wp.size>0?Math.max(8,Math.min(22,wp.size)):4;
-    const labelY=ORRERY_CY+side*(bodyR+22);
+    const labelY=cy+side*(bodyR+16);
     const label=document.createElementNS(svgNS,'text');
     label.setAttribute('x',x.toFixed(1));label.setAttribute('y',labelY.toFixed(1));
-    label.setAttribute('text-anchor','middle');label.setAttribute('font-size','12');
-    label.setAttribute('font-weight','700');label.setAttribute('fill','rgba(255,255,255,0.75)');
-    label.textContent=wp.name.replace(/[🌍🌕🔴☄️🟠💛🔵🌌]/gu,'').trim();
+    label.setAttribute('text-anchor','middle');
+    label.setAttribute('font-size','13');
+    label.setAttribute('font-weight','600');
+    label.setAttribute('fill','rgba(255,255,255,0.6)');
+    label.textContent=wp.name.length>18?wp.name.split(' ')[0]:wp.name;
     bodiesG.appendChild(label);
 
-    // Distance label (AU or km for Moon)
-    const distY=labelY+side*14;
-    const distLabel=document.createElementNS(svgNS,'text');
-    distLabel.setAttribute('x',x.toFixed(1));distLabel.setAttribute('y',distY.toFixed(1));
-    distLabel.setAttribute('text-anchor','middle');distLabel.setAttribute('font-size','9');
-    distLabel.setAttribute('fill','rgba(255,200,50,0.5)');
-    const distText=wp.au===0?'Start here':wp.au<0.01?'384,400 km':wp.au.toFixed(1)+' AU from Earth';
-    distLabel.textContent=distText;
-    bodiesG.appendChild(distLabel);
-
-    // Step count
-    const stepY=distY+side*12;
+    // Step count under/above the name
+    const stepY=labelY+side*13;
     const stepLabel=document.createElementNS(svgNS,'text');
     stepLabel.setAttribute('x',x.toFixed(1));stepLabel.setAttribute('y',stepY.toFixed(1));
-    stepLabel.setAttribute('text-anchor','middle');stepLabel.setAttribute('font-size','9');
-    stepLabel.setAttribute('fill','rgba(255,255,255,0.3)');
+    stepLabel.setAttribute('text-anchor','middle');
+    stepLabel.setAttribute('font-size','9.5');
+    stepLabel.setAttribute('fill','rgba(255,255,255,0.35)');
     stepLabel.textContent=wp.steps.toLocaleString()+' steps';
     bodiesG.appendChild(stepLabel);
   });
 }
 buildOrrery();
 
-// Scale toggle buttons
-document.querySelectorAll('.scale-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    spaceScaleMode=btn.dataset.scale;
-    document.querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    buildOrrery();
-    updateSpacePanel();
-  });
-});
-
-// ═══ SILK ROAD MAP — real OpenStreetMap tiles + SVG route overlay ═══
-// Tile helper: converts lat/lon to OSM tile numbers at given zoom
-function latLonToTile(lat,lon,zoom){
-  const n=Math.pow(2,zoom);
-  const x=Math.floor((lon+180)/360*n);
-  const latRad=lat*Math.PI/180;
-  const y=Math.floor((1-Math.log(Math.tan(latRad)+1/Math.cos(latRad))/Math.PI)/2*n);
-  return {x,y};
-}
-// Convert lat/lon to pixel position on the tile canvas
-function latLonToPixel(lat,lon,zoom,originTile,tileSize){
-  const n=Math.pow(2,zoom);
-  const px=(lon+180)/360*n*tileSize;
-  const latRad=lat*Math.PI/180;
-  const py=(1-Math.log(Math.tan(latRad)+1/Math.cos(latRad))/Math.PI)/2*n*tileSize;
-  return {
-    x: px - originTile.x*tileSize,
-    y: py - originTile.y*tileSize
-  };
-}
-
-const MAP_ZOOM=4, TILE_SIZE=256;
-// Route bounding box: lon 2°E to 110°E, lat 29°N to 47°N
-const originTile=latLonToTile(47,2,MAP_ZOOM); // top-left tile
-const endTile=latLonToTile(29,110,MAP_ZOOM);  // bottom-right tile
-const tilesW=endTile.x-originTile.x+1;
-const tilesH=endTile.y-originTile.y+1;
-let mapBuilt=false;
-
-function buildSilkRoadMap(){
-  if(mapBuilt)return;
-  mapBuilt=true;
-  const mapEl=document.getElementById('earth-map');
-  const tilesDiv=document.getElementById('map-tiles');
-  const overlay=document.getElementById('route-overlay');
-  const totalW=tilesW*TILE_SIZE, totalH=tilesH*TILE_SIZE;
-  tilesDiv.style.cssText=`position:absolute;top:0;left:0;width:${totalW}px;height:${totalH}px;`;
-  overlay.style.cssText=`position:absolute;top:0;left:0;width:${totalW}px;height:${totalH}px;`;
-  overlay.setAttribute('viewBox',`0 0 ${totalW} ${totalH}`);
-  mapEl.style.overflowX='auto';mapEl.style.overflowY='auto';
-
-  // Load OSM tiles — using tile.openstreetmap.org (free, educational use)
-  for(let tx=originTile.x;tx<=endTile.x;tx++){
-    for(let ty=originTile.y;ty<=endTile.y;ty++){
-      const img=document.createElement('img');
-      img.src=`https://tile.openstreetmap.org/${MAP_ZOOM}/${tx}/${ty}.png`;
-      img.style.cssText=`position:absolute;left:${(tx-originTile.x)*TILE_SIZE}px;top:${(ty-originTile.y)*TILE_SIZE}px;width:${TILE_SIZE}px;height:${TILE_SIZE}px;`;
-      img.crossOrigin='anonymous';
-      tilesDiv.appendChild(img);
-    }
-  }
-
-  // Apply dark overlay to make route visible
-  const darkEl=document.createElement('div');
-  darkEl.style.cssText=`position:absolute;inset:0;background:rgba(0,10,30,0.45);pointer-events:none;`;
-  tilesDiv.appendChild(darkEl);
-
-  // Draw route on SVG overlay
+// ═══ EARTH SVG ═══
+function buildEarthRoute(){
   const svgNS='http://www.w3.org/2000/svg';
-  const pts=EARTH_WAYPOINTS.map(w=>latLonToPixel(w.lat,w.lon,MAP_ZOOM,originTile,TILE_SIZE));
-  const ptStr=pts.map(p=>`${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
-  document.getElementById('route-line-bg').setAttribute('points',ptStr);
-  document.getElementById('route-line-fg').setAttribute('points',ptStr);
-
+  const decorG=document.getElementById('route-decor');
   const dotsG=document.getElementById('route-dots');
-  EARTH_WAYPOINTS.forEach((wp,i)=>{
-    const p=pts[i];
-    // City dot
-    const dot=document.createElementNS(svgNS,'circle');
-    dot.setAttribute('cx',p.x.toFixed(1));dot.setAttribute('cy',p.y.toFixed(1));dot.setAttribute('r','7');
-    dot.setAttribute('fill',i===0?'#7ec850':'rgba(255,255,255,0.25)');
-    dot.setAttribute('stroke','rgba(255,255,255,0.5)');dot.setAttribute('stroke-width','1.5');
-    dot.id=`rdot-${i}`;dot.setAttribute('class','route-dot locked');
-    dotsG.appendChild(dot);
-    // City label
-    const lbl=document.createElementNS(svgNS,'text');
-    lbl.setAttribute('x',p.x.toFixed(1));lbl.setAttribute('y',(p.y-12).toFixed(1));
-    lbl.setAttribute('text-anchor','middle');lbl.setAttribute('font-size','10');
-    lbl.setAttribute('font-weight','700');lbl.setAttribute('fill','rgba(255,255,255,0.85)');
-    lbl.style.textShadow='0 1px 3px rgba(0,0,0,0.8)';
-    lbl.textContent=wp.name.split(',')[0].replace('— Silk Road End!','🏆');
-    dotsG.appendChild(lbl);
-  });
+  const rl=document.getElementById('route-line');
 
-  // Store pixel positions on waypoints for the craft marker
-  EARTH_WAYPOINTS.forEach((wp,i)=>{ wp._px=pts[i].x; wp._py=pts[i].y; });
+  // Decorative terrain — a long wavy "sea" band scaled for the wide 2420x260 horizontal canvas
+  const sea=document.createElementNS(svgNS,'ellipse');
+  sea.setAttribute('cx','1210');sea.setAttribute('cy','135');sea.setAttribute('rx','1250');sea.setAttribute('ry','55');
+  sea.setAttribute('fill','#0d2a4a');sea.setAttribute('opacity','0.3');
+  decorG.appendChild(sea);
+
+  rl.setAttribute('points',EARTH_WAYPOINTS.map(w=>`${w.x},${w.y}`).join(' '));
+
+  EARTH_WAYPOINTS.forEach((wp,i)=>{
+    const c=document.createElementNS(svgNS,'circle');
+    c.setAttribute('cx',wp.x);c.setAttribute('cy',wp.y);c.setAttribute('r','10');
+    c.id=`rdot-${i}`;c.setAttribute('class','route-dot locked');
+    dotsG.appendChild(c);
+
+    // White outline ring so dots stand out clearly against the dark map
+    const ring=document.createElementNS(svgNS,'circle');
+    ring.setAttribute('cx',wp.x);ring.setAttribute('cy',wp.y);ring.setAttribute('r','10');
+    ring.setAttribute('fill','none');ring.setAttribute('stroke','rgba(255,255,255,0.4)');ring.setAttribute('stroke-width','1');
+    dotsG.appendChild(ring);
+
+    // Label flips above/below the dot based on its y position, so it always stays
+    // inside the 0-260 canvas height regardless of where the city sits vertically
+    const labelAbove=wp.y>130;
+    const labelY=labelAbove?wp.y-26:wp.y+30;
+    const label=document.createElementNS(svgNS,'text');
+    label.setAttribute('x',wp.x);label.setAttribute('y',labelY);
+    label.setAttribute('text-anchor','middle');
+    label.setAttribute('font-size','13');
+    label.setAttribute('font-weight','700');
+    label.setAttribute('fill','rgba(255,255,255,0.9)');
+    label.textContent=wp.name.split(',')[0];
+    dotsG.appendChild(label);
+
+    // Step count on the outer side of the name
+    const stepY=labelAbove?labelY-14:labelY+14;
+    const stepLabel=document.createElementNS(svgNS,'text');
+    stepLabel.setAttribute('x',wp.x);stepLabel.setAttribute('y',stepY);
+    stepLabel.setAttribute('text-anchor','middle');
+    stepLabel.setAttribute('font-size','9');
+    stepLabel.setAttribute('fill','rgba(255,255,255,0.4)');
+    stepLabel.textContent=wp.steps.toLocaleString()+' steps';
+    dotsG.appendChild(stepLabel);
+  });
 }
+buildEarthRoute();
 
 // ═══ PUPPY ═══
 function setPuppyState(state){
@@ -1013,16 +918,17 @@ function setPuppyStateDirect(state){
 }
 
 // Tap the floating bike button: Ready? puppy switches to bike mode immediately
+// ── CYCLING TIMER ──
+let rideStartTime=null;
+let rideTimerInterval=null;
+
 cycleToggleBtn.addEventListener('click',()=>{
-  if(!isCyclingActive){
-    startCycling();
-  } else {
-    stopCycling();
-  }
+  if(!isCyclingActive){ startCycling(); } else { stopCycling(); }
 });
 
 function startCycling(){
   isCyclingActive=true;
+  rideStartTime=Date.now();
   clearTimeout(idleTimer);
   helmet.classList.add('visible');
   puppy.classList.remove('state-walking','state-happy','state-idle','state-sleepy');
@@ -1032,20 +938,87 @@ function startCycling(){
   cycleToggleBtn.style.color='#fff';
   cycleToggleBtn.textContent='🛑';
   cyclingBar.classList.add('visible');
+  // Show live timer in the cycling bar label
+  rideTimerInterval=setInterval(()=>{
+    const elapsed=Math.floor((Date.now()-rideStartTime)/1000);
+    const h=Math.floor(elapsed/3600).toString().padStart(2,'0');
+    const m=Math.floor((elapsed%3600)/60).toString().padStart(2,'0');
+    const s=(elapsed%60).toString().padStart(2,'0');
+    document.getElementById('cycling-label').textContent='⛑️ '+h+':'+m+':'+s;
+  },1000);
   showBanner('Woof! Ready to ride! 🐶⛑️');
 }
 
 function stopCycling(){
   isCyclingActive=false;
+  clearInterval(rideTimerInterval);
+  rideTimerInterval=null;
   helmet.classList.remove('visible');
   cycleToggleBtn.style.background='';
   cycleToggleBtn.style.color='';
   cycleToggleBtn.textContent='🚴';
-  showBanner('Woof! Ride done! 🐾');
-  // Return puppy to whatever its walking mood actually is
-  currentPuppyState='__reset__'; // force re-evaluation
+  document.getElementById('cycling-label').textContent='🚴 Bonus';
+  // Show ride-end modal with elapsed time summary
+  const modal=document.getElementById('ride-end-modal');
+  const summary=document.getElementById('ride-timer-summary');
+  if(rideStartTime){
+    const elapsed=Math.floor((Date.now()-rideStartTime)/1000);
+    const m=Math.floor(elapsed/60),s=elapsed%60;
+    summary.textContent='You rode for '+m+'m '+s+'s — how far?';
+  } else {
+    summary.textContent='How far did you ride?';
+  }
+  document.getElementById('ride-km-input').value='';
+  modal.style.display='flex';
+  setTimeout(()=>document.getElementById('ride-km-input').focus(),300);
+  rideStartTime=null;
+  // Puppy settles back — modal handles the rest
+  currentPuppyState='__reset__';
   updateMoodFromSession();
 }
+
+// ── RIDE END MODAL handlers ──
+function applyRideKm(km){
+  if(km>0){
+    const KM_TO_STEPS=1250;
+    const bonus=Math.round(km*KM_TO_STEPS);
+    setCycling(cyclingKm+km);
+    // Add converted steps to the journey
+    steps+=bonus;
+    stepsInSession+=Math.min(bonus,200);
+    updateMoodFromSession();
+    updateHUD();updateBadges();
+    if(activePanel==='space')updateSpacePanel();
+    if(activePanel==='earth')updateEarthPanel();
+    checkPuppyMilestones();saveState();
+    showBanner('🚴 '+km.toFixed(1)+'km ride saved! +'+bonus.toLocaleString()+' step-equiv 🐾');
+  } else {
+    showBanner('Woof! Ride done! 🐾');
+  }
+}
+
+document.getElementById('ride-end-save').addEventListener('click',()=>{
+  const km=parseFloat(document.getElementById('ride-km-input').value||'0');
+  document.getElementById('ride-end-modal').style.display='none';
+  applyRideKm(km);
+});
+document.getElementById('ride-end-skip').addEventListener('click',()=>{
+  document.getElementById('ride-end-modal').style.display='none';
+  showBanner('Woof! Ride done! 🐾');
+});
+
+// ── PAST RIDE MODAL handlers ──
+document.getElementById('past-ride-save').addEventListener('click',()=>{
+  const km=parseFloat(document.getElementById('past-ride-km').value||'0');
+  document.getElementById('past-ride-modal').style.display='none';
+  document.getElementById('past-ride-km').value='';
+  if(km>0){ applyRideKm(km); }
+  else{ showBanner('Please enter a distance'); }
+});
+document.getElementById('past-ride-cancel').addEventListener('click',()=>{
+  document.getElementById('past-ride-modal').style.display='none';
+  document.getElementById('past-ride-km').value='';
+});
 
 // Called when Apple Health sync brings in actual cycling distance later
 // Only updates the NUMBER — does not control helmet visibility anymore
@@ -1137,131 +1110,104 @@ function updateBadges(){
 
 // ═══ SPACE PANEL ═══
 function updateSpacePanel(){
-  const idx=getCurrentSpaceWpIdx();
-  const wp=SPACE_WAYPOINTS[idx];
-  const nextWp=SPACE_WAYPOINTS[idx+1];
-  document.getElementById('sp-name').textContent=wp.name;
-  document.getElementById('sp-fact').textContent=wp.fact;
-  // Real distance: AU * 149,597,870 km
-  const kmFromEarth=Math.round(wp.au*149597870).toLocaleString();
-  document.getElementById('sp-dist').textContent=wp.au===0?'You are on Earth 🌍':kmFromEarth+' km from Earth';
+  const idx=getCurrentSpaceWpIdx();const wp=SPACE_WAYPOINTS[idx];const nextWp=SPACE_WAYPOINTS[idx+1];
+  document.getElementById('sp-name').textContent=wp.name;document.getElementById('sp-fact').textContent=wp.fact;
+  document.getElementById('sp-dist').textContent=(steps*1000000).toLocaleString()+' km traveled';
   document.getElementById('sp-step-mirror').textContent=steps.toLocaleString()+' steps';
 
-  // Craft marker — interpolated between current and next waypoint
+  // Position the "you are here" spacecraft marker on the orrery line,
+  // interpolating smoothly between the current and next waypoint based on progress
   const craftG=document.getElementById('orrery-craft');
   craftG.innerHTML='';
   const svgNS='http://www.w3.org/2000/svg';
-  const svg=document.getElementById('orrery-svg');
-  const svgW=parseFloat(svg.getAttribute('width'))||2000;
-  const xs=getOrreryXPositions(spaceScaleMode,svgW);
-  let craftX=xs[idx];
+  const tCur=idx/(SPACE_WAYPOINTS.length-1);
+  let tPos=tCur;
   if(nextWp){
-    const seg=Math.min(1,Math.max(0,(steps-wp.steps)/(nextWp.steps-wp.steps)));
-    craftX=xs[idx]+(xs[idx+1]-xs[idx])*seg;
+    const segProgress=Math.min(1,Math.max(0,(steps-wp.steps)/(nextWp.steps-wp.steps)));
+    const tNext=(idx+1)/(SPACE_WAYPOINTS.length-1);
+    tPos=tCur+(tNext-tCur)*segProgress;
   }
+  const craftX=ORRERY_X_START+tPos*(ORRERY_X_END-ORRERY_X_START);
 
+  // Glow ring behind the craft so "you are here" pops against the planets
   const glow=document.createElementNS(svgNS,'circle');
-  glow.setAttribute('cx',craftX.toFixed(1));glow.setAttribute('cy',ORRERY_CY);glow.setAttribute('r','20');
-  glow.setAttribute('fill','none');glow.setAttribute('stroke','#ffd76a');glow.setAttribute('stroke-width','1.5');glow.setAttribute('opacity','0.6');
+  glow.setAttribute('cx',craftX.toFixed(1));glow.setAttribute('cy',ORRERY_CY);glow.setAttribute('r','18');
+  glow.setAttribute('fill','none');glow.setAttribute('stroke','#ffd76a');glow.setAttribute('stroke-width','1.5');glow.setAttribute('opacity','0.55');
   craftG.appendChild(glow);
 
   const craftText=document.createElementNS(svgNS,'text');
-  craftText.setAttribute('x',craftX.toFixed(1));craftText.setAttribute('y',(ORRERY_CY+7).toFixed(1));
-  craftText.setAttribute('text-anchor','middle');craftText.setAttribute('font-size','22');
+  craftText.setAttribute('x',craftX.toFixed(1));craftText.setAttribute('y',(ORRERY_CY+6).toFixed(1));
+  craftText.setAttribute('text-anchor','middle');craftText.setAttribute('font-size','20');
   craftText.textContent='🛸';
   craftG.appendChild(craftText);
 
-  const yah=document.createElementNS(svgNS,'text');
-  yah.setAttribute('x',craftX.toFixed(1));yah.setAttribute('y',(ORRERY_CY-28).toFixed(1));
-  yah.setAttribute('text-anchor','middle');yah.setAttribute('font-size','10');
-  yah.setAttribute('font-weight','800');yah.setAttribute('fill','#ffd76a');
-  yah.textContent='YOU ARE HERE';
-  craftG.appendChild(yah);
+  const youAreHere=document.createElementNS(svgNS,'text');
+  youAreHere.setAttribute('x',craftX.toFixed(1));youAreHere.setAttribute('y',(ORRERY_CY-26).toFixed(1));
+  youAreHere.setAttribute('text-anchor','middle');youAreHere.setAttribute('font-size','10');
+  youAreHere.setAttribute('font-weight','700');youAreHere.setAttribute('fill','#ffd76a');
+  youAreHere.textContent='YOU ARE HERE';
+  craftG.appendChild(youAreHere);
 
-  // Auto-scroll to center craft
+  // Auto-scroll the space-scene container horizontally so the craft stays in view
   const sceneEl=document.getElementById('space-scene');
-  if(sceneEl){
-    const targetScroll=Math.max(0,craftX-sceneEl.clientWidth/2);
+  const svgEl=document.getElementById('orrery-svg');
+  if(svgEl&&sceneEl){
+    const totalW=svgEl.getBoundingClientRect().width||sceneEl.clientWidth*4;
+    const targetScroll=Math.max(0,(craftX/2520)*totalW-sceneEl.clientWidth/2);
     sceneEl.scrollTo({left:targetScroll,behavior:'smooth'});
   }
 
-  if(nextWp){
-    document.getElementById('sp-progress-fill').style.width=Math.min(100,((steps-wp.steps)/(nextWp.steps-wp.steps))*100)+'%';
-    document.getElementById('sp-next').textContent=`Next: ${nextWp.name} at ${nextWp.steps.toLocaleString()} steps`;
-  } else {
-    document.getElementById('sp-progress-fill').style.width='100%';
-    document.getElementById('sp-next').textContent='You have left the solar system! 🌌';
-  }
+  if(nextWp){document.getElementById('sp-progress-fill').style.width=Math.min(100,((steps-wp.steps)/(nextWp.steps-wp.steps))*100)+'%';document.getElementById('sp-next').textContent=`Next: ${nextWp.name} at ${nextWp.steps.toLocaleString()} steps`;}
+  else{document.getElementById('sp-progress-fill').style.width='100%';document.getElementById('sp-next').textContent='Solar system complete!';}
 }
 
 // ═══ EARTH PANEL ═══
 function updateEarthPanel(){
-  buildSilkRoadMap(); // lazy-build on first open
-  const idx=getCurrentEarthWpIdx();
-  const wp=EARTH_WAYPOINTS[idx];
-  const nextWp=EARTH_WAYPOINTS[idx+1];
-  document.getElementById('e-name').textContent=wp.name;
-  document.getElementById('e-fact').textContent=wp.fact;
+  const idx=getCurrentEarthWpIdx();const wp=EARTH_WAYPOINTS[idx];const nextWp=EARTH_WAYPOINTS[idx+1];
+  document.getElementById('e-name').textContent=wp.name;document.getElementById('e-fact').textContent=wp.fact;
   document.getElementById('e-steps').textContent=steps.toLocaleString()+' steps walked';
   document.getElementById('e-step-mirror').textContent=steps.toLocaleString()+' steps';
+  EARTH_WAYPOINTS.forEach((_,i)=>{const dot=document.getElementById(`rdot-${i}`);if(!dot)return;dot.setAttribute('class',`route-dot ${i<idx?'unlocked':i===idx?'current':'locked'}`);});
 
-  EARTH_WAYPOINTS.forEach((_,i)=>{
-    const dot=document.getElementById(`rdot-${i}`);
-    if(!dot)return;
-    dot.setAttribute('class',`route-dot ${i<idx?'unlocked':i===idx?'current':'locked'}`);
-    dot.setAttribute('fill',i<idx?'#7ec850':i===idx?'#f5c518':'rgba(255,255,255,0.2)');
-  });
-
-  // Puppy "you are here" marker
+  // "You are here" marker — interpolated smoothly toward the next city based on progress
   const svgNS='http://www.w3.org/2000/svg';
   const craftG=document.getElementById('route-craft');
   craftG.innerHTML='';
-  if(wp._px===undefined)return; // map not yet built
-  let px=wp._px,py=wp._py;
-  if(nextWp&&nextWp._px!==undefined){
-    const seg=Math.min(1,Math.max(0,(steps-wp.steps)/(nextWp.steps-wp.steps)));
-    px=wp._px+(nextWp._px-wp._px)*seg;
-    py=wp._py+(nextWp._py-wp._py)*seg;
+  let px=wp.x,py=wp.y;
+  if(nextWp){
+    const segProgress=Math.min(1,Math.max(0,(steps-wp.steps)/(nextWp.steps-wp.steps)));
+    px=wp.x+(nextWp.x-wp.x)*segProgress;
+    py=wp.y+(nextWp.y-wp.y)*segProgress;
   }
-
   const glow=document.createElementNS(svgNS,'circle');
-  glow.setAttribute('cx',px.toFixed(1));glow.setAttribute('cy',py.toFixed(1));glow.setAttribute('r','16');
-  glow.setAttribute('fill','rgba(245,197,24,0.2)');
-  glow.setAttribute('stroke','#f5c518');glow.setAttribute('stroke-width','2');
+  glow.setAttribute('cx',px.toFixed(1));glow.setAttribute('cy',py.toFixed(1));glow.setAttribute('r','15');
+  glow.setAttribute('fill','none');glow.setAttribute('stroke','#f5c518');glow.setAttribute('stroke-width','2');glow.setAttribute('opacity','0.7');
   craftG.appendChild(glow);
 
-  const pulse=document.createElementNS(svgNS,'circle');
-  pulse.setAttribute('cx',px.toFixed(1));pulse.setAttribute('cy',py.toFixed(1));pulse.setAttribute('r','22');
-  pulse.setAttribute('fill','none');pulse.setAttribute('stroke','rgba(245,197,24,0.4)');pulse.setAttribute('stroke-width','1.5');
-  pulse.style.animation='routePulse 1.5s ease-in-out infinite';
-  craftG.appendChild(pulse);
+  const pawText=document.createElementNS(svgNS,'text');
+  pawText.setAttribute('x',px.toFixed(1));pawText.setAttribute('y',(py+5).toFixed(1));
+  pawText.setAttribute('text-anchor','middle');pawText.setAttribute('font-size','15');
+  pawText.textContent='🐾';
+  craftG.appendChild(pawText);
 
-  const paw=document.createElementNS(svgNS,'text');
-  paw.setAttribute('x',px.toFixed(1));paw.setAttribute('y',(py+6).toFixed(1));
-  paw.setAttribute('text-anchor','middle');paw.setAttribute('font-size','16');
-  paw.textContent='🐾';
-  craftG.appendChild(paw);
+  const youAreHere=document.createElementNS(svgNS,'text');
+  youAreHere.setAttribute('x',px.toFixed(1));youAreHere.setAttribute('y',(py-16).toFixed(1));
+  youAreHere.setAttribute('text-anchor','middle');youAreHere.setAttribute('font-size','9');
+  youAreHere.setAttribute('font-weight','700');youAreHere.setAttribute('fill','#f5c518');
+  youAreHere.textContent='YOU ARE HERE';
+  craftG.appendChild(youAreHere);
 
-  const yah=document.createElementNS(svgNS,'text');
-  yah.setAttribute('x',px.toFixed(1));yah.setAttribute('y',(py-22).toFixed(1));
-  yah.setAttribute('text-anchor','middle');yah.setAttribute('font-size','9');
-  yah.setAttribute('font-weight','800');yah.setAttribute('fill','#f5c518');
-  yah.textContent='YOU ARE HERE';
-  craftG.appendChild(yah);
-
-  // Scroll map to center on puppy position
+  // Auto-scroll the map so your current position is centered in view
   const mapEl=document.getElementById('earth-map');
-  if(mapEl){
-    mapEl.scrollTo({left:Math.max(0,px-mapEl.clientWidth/2),top:Math.max(0,py-mapEl.clientHeight/2),behavior:'smooth'});
+  const svgEl=document.getElementById('route-svg');
+  if(svgEl&&mapEl){
+    const totalH=svgEl.getBoundingClientRect().height||mapEl.clientHeight*3;
+    const targetScroll=Math.max(0,(py/880)*totalH-mapEl.clientHeight/2);
+    mapEl.scrollTo({top:targetScroll,behavior:'smooth'});
   }
 
-  if(nextWp){
-    document.getElementById('earth-progress-fill').style.width=Math.min(100,((steps-wp.steps)/(nextWp.steps-wp.steps))*100)+'%';
-    document.getElementById('e-next').textContent=`Next: ${nextWp.name} at ${nextWp.steps.toLocaleString()} steps`;
-  } else {
-    document.getElementById('earth-progress-fill').style.width='100%';
-    document.getElementById('e-next').textContent='Silk Road complete! 🏆';
-  }
+  if(nextWp){document.getElementById('earth-progress-fill').style.width=Math.min(100,((steps-wp.steps)/(nextWp.steps-wp.steps))*100)+'%';document.getElementById('e-next').textContent=`Next: ${nextWp.name} at ${nextWp.steps.toLocaleString()} steps`;}
+  else{document.getElementById('earth-progress-fill').style.width='100%';document.getElementById('e-next').textContent='Silk Road complete!';}
 }
 
 // ═══ PANELS ═══
@@ -1351,6 +1297,14 @@ document.getElementById('btn-restore').addEventListener('click',()=>{
   else{showBanner('Paste your saved data first');}
 });
 document.getElementById('btn-export-close').addEventListener('click',()=>document.getElementById('export-screen').classList.add('hidden'));
+
+// Add past ride from settings menu
+document.getElementById('smenu-past-ride').addEventListener('click',()=>{
+  settingsMenu.classList.remove('open');
+  document.getElementById('past-ride-km').value='';
+  document.getElementById('past-ride-modal').style.display='flex';
+  setTimeout(()=>document.getElementById('past-ride-km').focus(),300);
+});
 
 // Reset
 document.getElementById('smenu-reset').addEventListener('click',()=>{
@@ -1493,10 +1447,9 @@ document.querySelectorAll('.cycle-btn').forEach(btn=>{
       if(isCyclingActive) stopCycling();
       showBanner('Cycling reset 🚫');
     } else {
-      setCycling(cyclingKm+add);
-      // Test buttons also trigger the actual helmet, same as the real toggle
+      // Test buttons use applyRideKm so steps are also credited
+      applyRideKm(add);
       if(!isCyclingActive) startCycling();
-      showBanner(`+${add}km cycling! 🐶⛑️`);
     }
   });
 });
@@ -1584,5 +1537,6 @@ setPuppyState('sleepy');updateHUD();
 if(cyclingKm>0) setCycling(cyclingKm);
 checkURLSteps();
 </script>
+
 </body>
 </html>
